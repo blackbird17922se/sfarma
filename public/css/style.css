@@ -1,0 +1,38 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'poppins', sans-serif;
+    color: #ffffff;
+    overflow: hidden;
+    align-items: center;
+
+}
+
+#body-login{
+    background: url("../img/bg_login.jpg") no-repeat;
+    width: 100%;
+    background-size: cover;
+}
+
+.input-div >div >input{
+    /* position: absolute;
+    left: 0;
+    top: 0; */
+    width: 30%;
+    border: none;
+    outline: none;
+    /* background: none; */
+    padding: 0.5rem 0.7rem;
+    font-size: 1.2rem;
+}
+
+.btn{
+    width: 20%;
+    height: 50px;
+    border-radius: 25px;
+    margin-top: 20px;
+}
