@@ -5,12 +5,39 @@ $user = $_POST['user'];
 $pass = $_POST['pass'];
 
 $usuario = new Usuario();
-$usuario->logIn($user,$pass);
-foreach($usuario->objetos as $objeto){
-    print_r($objeto);
+
+// si hay una sesion en curso..
+if(!empty($_SESSION['rol'])){
+    switch ($_SESSION['rol']) {
+        // enrutar
+        case 1:
+            header("Location: ../views/adm_cat.php");
+        break;
+        case 2:
+            header("Location: ../views/tec_cat.php");
+        break;
+    }  
+
+}else{
+
+    // ejecutar consulta
+    $usuario->logIn($user,$pass);
+    if(!empty($usuario->objetos)){
+        foreach($usuario->objetos as $objeto){
+            $_SESSION['usuario'] = $objeto->id_usu;
+            $_SESSION['rol'] = $objeto->rol;
+            $_SESSION['nom'] = $objeto->nom;
+        }
+        switch ($_SESSION['rol']) {
+            // admin
+            case 1:
+                header("Location: ../views/adm_cat.php");
+            break;
+            case 2:
+                header("Location: ../views/tec_cat.php");
+            break;
+        }  
+    }else{
+        header("Location: ../index.php");
+    }
 }
-// echo "";
-// echo $user;
-// echo "";
-// echo $pass;
-// loginController

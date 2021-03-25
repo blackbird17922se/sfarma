@@ -7,13 +7,22 @@
     <title>Login</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../public/css/style.css">
+    <link rel="stylesheet" href="public/css/style.css">
     <!-- font awess -->
-    <link rel="stylesheet" href="../public/css/css/all.min.css">
+    <link rel="stylesheet" href="public/css/css/all.min.css">
 </head>
+<?php
+session_start();
+// si session esta vacia..
+if(!empty($_SESSION['rol'])){
+    header("Location: controllers/loginController.php");
+}else{
+    session_destroy();
+
+?>
 <body id="body-login">
 <div class="contenedor-login">
-    <form action="../controllers/loginController.php" method="POST">
+    <form action="controllers/loginController.php" method="POST">
     <h2>Farmacia</h2>
         <div class="input-div correo">
             <div class="i">
@@ -42,3 +51,7 @@
     
 </body>
 </html>
+<?php
+}
+
+?>
