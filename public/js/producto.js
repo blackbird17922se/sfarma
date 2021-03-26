@@ -60,6 +60,7 @@ $(document).ready(function(){
     $('#form-crear-product').submit(e=>{
         /* recibir los datos del formulario al hacer click en el boton submit */
         /* val(): obtiene el valor en el imput */
+        let id = $('#id_edit-prod').val()
         let nombre = $('#nombre').val();
         let compos = $('#compos').val();
         let adici = $('#adici').val();
@@ -67,9 +68,14 @@ $(document).ready(function(){
         let prod_lab = $('#prod_lab').val();
         let prod_tipo = $('#prod_tipo').val();
         let prod_present = $('#prod_present').val();
-        console.log(nombre+" "+compos+" "+adici+" "+precio+" "+prod_lab+" "+prod_tipo+" "+prod_present);
-        funcion = "crear";
-        $.post('../controllers/productoController.php',{funcion,nombre,compos,adici,precio,prod_lab,prod_tipo,prod_present},(response)=>{
+        // console.log(nombre+" "+compos+" "+adici+" "+precio+" "+prod_lab+" "+prod_tipo+" "+prod_present);
+        if(edit==true){
+            funcion="editar";
+        }else{
+            funcion="crear";
+        }
+        // funcion = "crear";
+        $.post('../controllers/productoController.php',{funcion,id,nombre,compos,adici,precio,prod_lab,prod_tipo,prod_present},(response)=>{
             console.log(response);
 
             if(response=='add'){
@@ -79,12 +85,6 @@ $(document).ready(function(){
                 $('#form-crear-product').trigger('reset');
                 buscar_producto();
             }
-            if(response=='noadd'){
-                $('#noadd-product').hide('slow');
-                $('#noadd-product').show(1000);
-                $('#noadd-product').hide(2000);
-                $('#form-crear-product').trigger('reset');
-            }
             if(response=='edit'){
                 $('#edit-product').hide('slow');
                 $('#edit-product').show(1000);
@@ -92,7 +92,19 @@ $(document).ready(function(){
                 $('#form-crear-product').trigger('reset');
                 buscar_producto();
             }
-
+            if(response=='noadd'){
+                $('#noadd-product').hide('slow');
+                $('#noadd-product').show(1000);
+                $('#noadd-product').hide(2000);
+                $('#form-crear-product').trigger('reset');
+            }
+            if(response=='noedit'){
+                $('#noadd-product').hide('slow');
+                $('#noadd-product').show(1000);
+                $('#noadd-product').hide(2000);
+                $('#form-crear-product').trigger('reset');
+            }
+            edit = false;
         })
         e.preventDefault();
     });
@@ -190,9 +202,63 @@ $(document).ready(function(){
         $('#prod_tipo').val(PTIPO).trigger('change');
         $('#prod_present').val(PPRES).trigger('change');
         edit = true;   // bandera
+    })
 
 
- 
+    /* FUN BORRAR */
+    $(document).on('click','.borrar',(e)=>{
+        var funcion = "borrar";
+        const ELEM = $(this)[0].activeElement.parentElement.parentElement.parentElement.parentElement;
+        const ID = $(ELEM).attr('prodId');
+        const NOMB = $(ELEM).attr('prodnombre');
+        console.log(ID + NOMB);
+
+        // Alerta
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+              confirmButton: 'btn btn-success',
+              cancelButton: 'btn btn-danger mr-1'
+            },
+            buttonsStyling: false
+          })
+          
+          swalWithBootstrapButtons.fire({
+            title: '¿Está seguro que desea eliminar el producto '+NOMB+'?',
+            text: "Esta acción ya no se podrá deshacer.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Eliminar',
+            cancelButtonText: 'Cancelar',
+            reverseButtons: true
+          }).then((result) => {
+            if (result.value) {
+                $.post('../controllers/productoController.php',{ID,funcion},(response)=>{
+                    // console.log(response);
+                    edit==false;
+                    if(response=='borrado'){
+                        swalWithBootstrapButtons.fire(
+                            'Eliminado '+NOMB+'!',
+                            'El producto ha sido eliminado.',
+                            'success'
+                        )
+                        buscar_producto();
+                    }else{
+                        swalWithBootstrapButtons.fire(
+                            'Error al eliminar '+NOMB,
+                            'El producto está siendo usado en un lote.',
+                            'error'
+                        )
+                    }
+                })
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+            //   swalWithBootstrapButtons.fire(
+            //     'Cancelado',
+            //     '',
+            //     'error'
+            //   )
+            }
+          })
     })
 
 })

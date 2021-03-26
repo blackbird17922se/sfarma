@@ -17,9 +17,18 @@ if($_POST['funcion']=='crear'){
 }
 
 if($_POST['funcion']=='editar'){
-    $nom_lab = $_POST['nom_lab'];
-    $id_editado = $_POST['id_editado'];
-    $lab->editar($nom_lab,$$id_editado);
+    /* datos recibidos desde producto.js >>> $.post('../controllers/productoController.php',{fu... */
+    // nombre,compos,adici,precio,prod_lab,prod_tipo,prod_present
+    $id = $_POST['id'];
+    $nombre = $_POST['nombre'];
+    $compos = $_POST['compos'];
+    $adici = $_POST['adici'];
+    $precio = $_POST['precio'];
+    $prod_lab = $_POST['prod_lab'];
+    $prod_tipo = $_POST['prod_tipo'];
+    $prod_present = $_POST['prod_present'];
+    // $nombre = $_POST['nombre'];
+    $product->editar($id,$nombre,$compos,$adici,$precio,$prod_lab,$prod_tipo,$prod_present);
 }
 
 if($_POST['funcion']=='buscar'){
@@ -51,8 +60,8 @@ if($_POST['funcion']=='buscar'){
 
 if($_POST['funcion'] =='borrar'){
     /* OJO: $_POST['ID'] viene desde labratorio.js en la const ID = $(ELEM).attr('labId'); */
-    $id_lab = $_POST['ID'];
-    $lab->borrar($id_lab);
+    $id = $_POST['ID'];
+    $product->borrar($id);
 }
 
 if($_POST['funcion'] =='listar_labs'){

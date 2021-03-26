@@ -81,19 +81,69 @@ class Producto{
         }
     }
 
-    // function borrar($id_lab){
-    //     $sql = "DELETE FROM laboratorio WHERE id_lab=:id_lab";
-    //     $query = $this->acceso->prepare($sql);
-    //     $query->execute(array(':id_lab' => $id_lab));
-    //     // echo 'borrado';
+    function editar($id,$nombre,$compos,$adici,$precio,$prod_lab,$prod_tipo,$prod_pres){
+        $sql = "SELECT id_prod FROM producto WHERE id_prod != :id
+        -- $nombre,$compos,$adici,$precio,$prod_lab,$prod_tipo,$prod_pres
+            AND nombre = :nombre 
+            AND compos = :compos 
+            AND adici = :adici 
+            -- AND precio = :precio 
+            AND prod_lab = :prod_lab 
+            AND prod_tipo = :prod_tipo 
+            AND prod_pres = :prod_pres
+        ";
+        $query = $this->acceso->prepare($sql);
+        $query->execute(array(
+            ':id'           => $id,
+            ':nombre'       => $nombre,
+            ':compos'       => $compos,
+            ':adici'        => $adici,
+            // ':precio'       => $precio,
+            ':prod_lab'     => $prod_lab,
+            ':prod_tipo'    => $prod_tipo,
+            ':prod_pres' => $prod_pres
+            // 'nom_lab' => $nom_lab,
+        ));
+        $this->objetos=$query->fetchall();
+        /* Si encuentra el producto entonces no agregarlo */
+        if(!empty($this->objetos)){
+            echo 'noedit';
+        }else{
+            $sql = "UPDATE producto SET
+                 nombre = :nombre, 
+                 compos = :compos, 
+                 adici = :adici, 
+                 precio = :precio, 
+                 prod_lab = :prod_lab, 
+                 prod_tipo = :prod_tipo, 
+                 prod_pres = :prod_pres
+                WHERE id_prod = :id";
+            $query = $this->acceso->prepare($sql);
+            $query->execute(array(
+                ':id'           => $id,
+                ':nombre'       => $nombre,
+                ':compos'       => $compos,
+                ':adici'        => $adici,
+                ':precio'       => $precio,
+                ':prod_lab'     => $prod_lab,
+                ':prod_tipo'    => $prod_tipo,
+                ':prod_pres'    => $prod_pres
+            ));
+            echo 'edit';
+        }
+    }
 
-    //     if(!empty($query->execute(array(':id_lab' => $id_lab)))){
-    //         echo 'borrado';
-    //     }else{
-    //         echo 'noborrado';
-    //     }
+    function borrar($id){
+        $sql = "DELETE FROM producto WHERE id_prod = :id";
+        $query = $this->acceso->prepare($sql);
+        $query->execute(array(':id' => $id));
 
-    // }
+        if(!empty($query->execute(array(':id' => $id)))){
+            echo 'borrado';
+        }else{
+            echo 'noborrado';
+        }
+    }
 
     // function editar($nom_lab,$id_editado){
     //     $sql = "UPDATE laboratorio SET nom_lab = :nom_lab WHERE id_lab=:id_lab";
