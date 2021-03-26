@@ -31,3 +31,17 @@ if($_POST['funcion'] =='borrar'){
     $id_present = $_POST['ID'];
     $present->borrar($id_present);
 }
+
+if($_POST['funcion'] =='listar_presents'){
+    $present->listar_presents();
+    $json=array();
+    foreach($present->objetos as $objeto){
+        $json[]=array(
+            'id_present'=>$objeto->id_present,
+            /* OJO: ...=> $objeto->NOMBRE DEL CAMPO EL LA BD */
+            'nom_present'=>$objeto->nom
+        );
+    }
+    $jsonstring = json_encode($json);
+    echo $jsonstring;
+}

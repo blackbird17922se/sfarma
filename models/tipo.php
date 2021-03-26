@@ -59,13 +59,14 @@ class Tipo{
         $query = $this->acceso->prepare($sql);
         $query->execute(array(':id_tipo_prod' => $id_editado,':nom' => $nom));
         echo 'edit';
-        
+    }
 
-        // if(!empty($query->execute(array(':id_lab' => $id_lab)))){
-        //     echo 'borrado';
-        // }else{
-        //     echo 'noborrado';
-        // }
-
+    function listar_tipos(){
+        // $consulta = $_POST['consulta'];
+        $sql="SELECT * FROM tipo_prod ORDER BY nom ASC";
+        $query = $this->acceso->prepare($sql);
+        $query->execute();
+        $this->objetos=$query->fetchall();
+        return $this->objetos;
     }
 }

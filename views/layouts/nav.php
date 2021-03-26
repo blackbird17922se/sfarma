@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="../public/css/adminlte.min.css">
   <!-- Alertas style -->
   <link rel="stylesheet" href="../public/css/sweetalert2.css">
+  <!-- selt2 -->
+  <link rel="stylesheet" href="../public/css/select2.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -72,14 +74,25 @@
        
           <li class="nav-header">Almacen</li>
           
+          <!-- items que contiene la seccion almacen -->
           <li class="nav-item">
-            <a href="adm_atr.php" class="nav-link">
-              <i class="nav-icon fas fa-image"></i>
+            <a href="adm_product.php" class="nav-link">
+              <i class="nav-icon fas fa-pills"></i>
               <p>
-                Gestion Atributo
+                Gestión de productos
               </p>
             </a>
-          </li>          
+          </li>
+
+          <li class="nav-item">
+            <a href="adm_atr.php" class="nav-link">
+              <i class="nav-icon fas fa-vials"></i>
+              <p>
+                Gestión de Atributos
+              </p>
+            </a>
+          </li>
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

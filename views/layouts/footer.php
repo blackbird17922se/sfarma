@@ -18,5 +18,7 @@
 <script src="../public/js/demo.js"></script>
 <!-- aletas -->
 <script src="../public/js/sweetalert2.js"></script>
+<!-- selct2 -->
+<script src="../public/js/select2.js"></script>
 </body>
 </html>

@@ -60,4 +60,13 @@ class Presentacion{
         $query->execute(array(':id_present' => $id_editado,':nom' => $nom));
         echo 'edit';
     }
+
+    function listar_presents(){
+        // $consulta = $_POST['consulta'];
+        $sql="SELECT * FROM present ORDER BY nom ASC";
+        $query = $this->acceso->prepare($sql);
+        $query->execute();
+        $this->objetos=$query->fetchall();
+        return $this->objetos;
+    }
 }

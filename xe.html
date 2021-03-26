@@ -39,7 +39,7 @@
 
 <tr labId="">
     <td>
-        <button class="btn btn-success" title="editar" type="button" data-toggle="modal" data-target="#">
+        <button id="btn-crear" type="button" data-toggle="modal" data-target="#crearproduct" class="btn bg-gradient-primary ml-2" title="editar">
             <i class="fas fa-pencil-alt"></i>
         </button>
     </td>
@@ -48,5 +48,44 @@
             <i class="fas fa-trash"></i>
         </button>
     </td>
+    <div id="producto" class="row d-flex align-items-stretch"></div>
+    <option value=""></option>
 
 </tr>
+
+
+
+
+<div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+    <div class="card bg-light">
+      <div class="card-header text-muted border-bottom-0">
+        Digital Strategist
+      </div>
+      <div class="card-body pt-0">
+        <div class="row">
+          <div class="col-7">
+            <h2 class="lead"><b>Nicole Pearson</b></h2>
+            <h4 class="lead"><b><i class="fas fa-lg fa-dollar-sign mr-1"></i></b></h4>
+            <p class="text-muted text-sm"><b>About: </b> Web Designer / UX / Graphic Artist / Coffee Lover </p>
+            <ul class="ml-4 mb-0 fa-ul text-muted">
+              <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: Demo Street 123, Demo City 04312, NJ</li>
+              <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li>
+            </ul>
+          </div>
+          <div class="col-5 text-center">
+            <img src="../../dist/img/user1-128x128.jpg" alt="user-avatar" class="img-circle img-fluid">
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="text-right">
+          <button class="btn btn-sm bg-teal">
+            <i class="fas fa-pencil-alt"></i>
+          </button>
+          <button class="btn btn-sm btn-primary">
+            <i class="fas fa-plus-square"></i> View Profile
+          </button>
+        </div>
+      </div>
+    </div>
+</div>

@@ -31,3 +31,17 @@ if($_POST['funcion'] =='borrar'){
     $id_tipo = $_POST['ID'];
     $tipo->borrar($id_tipo);
 }
+
+if($_POST['funcion'] =='listar_tipos'){
+    $tipo->listar_tipos();
+    $json=array();
+    foreach($tipo->objetos as $objeto){
+        $json[]=array(
+            'id_tipo'=>$objeto->id_tipo_prod,
+            /* OJO: ...=> $objeto->NOMBRE DEL CAMPO EL LA BD */
+            'nom_tipo'=>$objeto->nom
+        );
+    }
+    $jsonstring = json_encode($json);
+    echo $jsonstring;
+}

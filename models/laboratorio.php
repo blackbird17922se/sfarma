@@ -59,13 +59,15 @@ class Laboratorio{
         $query = $this->acceso->prepare($sql);
         $query->execute(array(':id_lab' => $id_editado,':nom_lab' => $nom_lab));
         echo 'edit';
-        
+    }
 
-        // if(!empty($query->execute(array(':id_lab' => $id_lab)))){
-        //     echo 'borrado';
-        // }else{
-        //     echo 'noborrado';
-        // }
-
+    function listar_labs(){
+        // $consulta = $_POST['consulta'];
+        $sql="SELECT * FROM laboratorio ORDER BY nom_lab ASC";
+        $query = $this->acceso->prepare($sql);
+        $query->execute();
+        $this->objetos=$query->fetchall();
+        return $this->objetos;
     }
 }
+

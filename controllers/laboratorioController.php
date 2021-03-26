@@ -31,3 +31,16 @@ if($_POST['funcion'] =='borrar'){
     $id_lab = $_POST['ID'];
     $lab->borrar($id_lab);
 }
+
+if($_POST['funcion'] =='listar_labs'){
+    $lab->listar_labs();
+    $json=array();
+    foreach($lab->objetos as $objeto){
+        $json[]=array(
+            'id_lab'=>$objeto->id_lab,
+            'nom_lab'=>$objeto->nom_lab
+        );
+    }
+    $jsonstring = json_encode($json);
+    echo $jsonstring;
+}
