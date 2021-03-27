@@ -145,20 +145,13 @@ class Producto{
         }
     }
 
-    // function editar($nom_lab,$id_editado){
-    //     $sql = "UPDATE laboratorio SET nom_lab = :nom_lab WHERE id_lab=:id_lab";
-    //     $query = $this->acceso->prepare($sql);
-    //     $query->execute(array(':id_lab' => $id_editado,':nom_lab' => $nom_lab));
-    //     echo 'edit';
-    // }
-
-    // function listar_labs(){
-    //     // $consulta = $_POST['consulta'];
-    //     $sql="SELECT * FROM laboratorio ORDER BY nom_lab ASC";
-    //     $query = $this->acceso->prepare($sql);
-    //     $query->execute();
-    //     $this->objetos=$query->fetchall();
-    //     return $this->objetos;
-    // }
+    /* Sumar "sum()" todos los campos stock, esa suma se llamara total, buscara todos lotes con un id producto X
+    y a esos lotes los mumara todo el stock */
+    function obtenerStock($id_prod){
+        $sql = "SELECT SUM(stock) as total FROM lote WHERE lote_id_prod = :id_prod";
+        $query = $this->acceso->prepare($sql);
+        $query->execute(array(':id_prod' => $id_prod));
+        $this->objetos=$query->fetchall();
+        return $this->objetos;
+    }
 }
-

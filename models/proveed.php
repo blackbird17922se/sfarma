@@ -107,5 +107,13 @@ class Proveed{
             echo 'noborrado';
         }
     }
+
+    function listar_proveeds(){
+        $sql="SELECT * FROM proveed";
+        $query = $this->acceso->prepare($sql);
+        $query->execute();
+        $this->objetos=$query->fetchall();
+        return $this->objetos;
+    }
 }
 

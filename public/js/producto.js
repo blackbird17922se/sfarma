@@ -57,6 +57,24 @@ $(document).ready(function(){
             $('#prod_present').html(template);
         })
     }
+
+    listar_proveeds();
+    function listar_proveeds(){
+        funcion = "listar_proveeds";
+        $.post('../controllers/proveedController.php',{funcion},(response)=>{
+            console.log(response);
+            const PROVEEDS = JSON.parse(response);
+            let template = '';
+            PROVEEDS.forEach(proveed=>{
+                template+=`
+                    <option value="${proveed.id_proveed}">${proveed.nom_proveed}</option>
+                `;
+            });
+            /* id del campo que contiene el listado */
+            $('#lote_id_prov').html(template);
+        })
+    }
+
     $('#form-crear-product').submit(e=>{
         /* recibir los datos del formulario al hacer click en el boton submit */
         /* val(): obtiene el valor en el imput */
@@ -148,7 +166,7 @@ $(document).ready(function(){
                     <button class="editar btn btn-sm btn-success" type="button" data-toggle="modal" data-target="#crearproduct">
                         <i class="fas fa-pencil-alt"></i>
                     </button>
-                    <button class="lote btn btn-sm btn-primary">
+                    <button class="lote btn btn-sm btn-primary" type="button" data-toggle="modal" data-target="#crearlote">
                         <i class="fas fa-plus-square"></i>
                     </button>
                     <button class="borrar btn btn-sm btn-danger">
@@ -201,6 +219,18 @@ $(document).ready(function(){
         $('#prod_lab').val(PLAB).trigger('change');
         $('#prod_tipo').val(PTIPO).trigger('change');
         $('#prod_present').val(PPRES).trigger('change');
+        edit = true;   // bandera
+    })
+
+
+    $(document).on('click','.lote',(e)=>{
+        const ELEM = $(this)[0].activeElement.parentElement.parentElement.parentElement.parentElement;
+        const ID = $(ELEM).attr('prodId');
+        const NOMB = $(ELEM).attr('prodnombre');
+
+        $('#lote_id_prod').val(ID);
+        $('#nom_product_lote').html(NOMB);
+        // console.log(ID + '-' + NOMB);
         edit = true;   // bandera
     })
 
@@ -259,6 +289,31 @@ $(document).ready(function(){
             //   )
             }
           })
-    })
+    });
+
+    $('#form-crear-lote').submit(e=>{
+
+        let lote_id_prod = $('#lote_id_prod').val()
+        let lote_id_prov = $('#lote_id_prov').val();
+        let stock = $('#stock').val();
+        let vencim = $('#vencim').val();
+        funcion="crear";
+
+        // funcion = "crear";
+        $.post('../controllers/loteController.php',{funcion,lote_id_prod,lote_id_prov,stock,vencim},(response)=>{
+            console.log("mau " + response);
+
+            if(response=='add'){
+                $('#add-lote').hide('slow');
+                $('#add-lote').show(1000);
+                $('#add-lote').hide(2000);
+                $('#form-crear-lote').trigger('reset');
+                buscar_producto();
+            }
+            
+            edit = false;
+        })
+        e.preventDefault();
+    });
 
 })

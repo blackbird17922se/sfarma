@@ -100,6 +100,70 @@ if(!empty($_SESSION['rol']==1)){
     </div>
 </div>
 
+<!-- modal lote -->
+<div class="modal fade" id="crearlote" tabindex="-1" role="dialog"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="card card-success">
+                <div class="card-header">
+                    <h3 class="card-title">Crear lote</h3>
+                    <button data-dismiss="modal" aria-label="close" class="close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="card-body">
+
+                    <!-- ALERTAS -->
+                    <div class="alert alert-success text-center" id="add-lote" style="display: none;">
+                        <span><i class="fas fa-check m-1"></i>Registro Exitoso</span>
+                    </div>
+
+                    <div class="alert alert-danger text-center" id="noadd-lote" style="display: none;">
+                        <span><i class="fas fa-times m-1"></i>Ya existe el lote ingresado</span>
+                    </div>
+
+                    <div class="alert alert-success text-center" id="edit-lote" style="display: none;">
+                        <span><i class="fas fa-check m-1"></i>lote editado</span>
+                    </div>
+
+
+                    <!-- FORMULARIO -->
+                    <form id="form-crear-lote">
+
+                        <div class="form-group">
+                            <label for="nom_product_lote">Producto:</label>
+                            <label id="nom_product_lote">NombreX</label>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lote_id_prov">Seleccione proveedor</label>
+                            <select id="lote_id_prov" class="form-control select2" style="width: 100%;"></select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="stock">Stock</label>
+                            <input type="text" class="form-control" id="stock" name="stock" aria-describedby="stockHelp" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="vencim">Fecha de vencimiento</label>
+                            <input type="date" class="form-control" id="vencim" name="vencim" aria-describedby="vencimHelp">
+                        </div>
+    
+                        <input type="hidden" id="lote_id_prod">
+
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn bg-gradient-primary float-right m-1">Guardar</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-outline-secoundary float-right m-1">Cancelar</button>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -108,14 +172,14 @@ if(!empty($_SESSION['rol']==1)){
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Gestión de Productos
-                <button id="btn-crear" type="button" data-toggle="modal" data-target="#crearproduct" class="btn bg-gradient-primary ml-2" title="editar">Crear Producto</button>
+            <h1>Gestión de lotes
+                <button id="btn-crear" type="button" data-toggle="modal" data-target="#crearlote" class="btn bg-gradient-primary ml-2" title="editar">Crear Producto</button>
             </h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">gestión de productos</li>
+              <li class="breadcrumb-item active">gestión de lotes</li>
             </ol>
           </div>
         </div>
@@ -127,9 +191,9 @@ if(!empty($_SESSION['rol']==1)){
         <div class="container-fluid">
             <div class="card card-success">
                 <div class="card-header">
-                    <h3 class="card-title">Buscar Producto</h3>
+                    <h3 class="card-title">Buscar lote</h3>
                     <div class="input-group">
-                        <input id="busq-product" type="text" class="form-control float-left" placeholder="Ingrese el nombre del producto">
+                        <input id="buscar-lote" type="text" class="form-control float-left" placeholder="Ingrese el nombre del lote">
                         <div class="input-group-append">
                             <buttom class="btn btn-default"><i class="fas fa-search"></i></buttom>
                         </div>

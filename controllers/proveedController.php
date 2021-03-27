@@ -44,3 +44,16 @@ if($_POST['funcion'] =='borrar'){
     $id_prov = $_POST['ID'];
     $proveed->borrar($id_prov);
 }
+
+if($_POST['funcion'] =='listar_proveeds'){
+    $proveed->listar_proveeds();
+    $json=array();
+    foreach($proveed->objetos as $objeto){
+        $json[]=array(
+            'id_proveed'=>$objeto->id_prov,
+            'nom_proveed'=>$objeto->nom
+        );
+    }
+    $jsonstring = json_encode($json);
+    echo $jsonstring;
+}

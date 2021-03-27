@@ -35,23 +35,27 @@ if($_POST['funcion']=='buscar'){
     $product->buscar();
     $json=array();
     foreach($product->objetos as $objeto){
-        $json[]=array(
-            // $nombre,$compos,$adici,$precio,$prod_lab,$prod_tipo,$prod_present
+        /* Funcion que busca en los lotes, los productos con id X, a medida que los va sumando, suma su cantidad */
+        $product->obtenerStock($objeto->id_prod);
+        foreach($product->objetos as $obj){
+            /* $obj->total: el total viene del alias total en el modelo >> "SELECT SUM(stock) as >>total<< ...*/
+            $total = $obj->total;
+        }
 
+        $json[]=array(
+            /* '' =>$objeto->ALIAS ASIGNADO */
             'id_prod'=>$objeto->id_prod,
             'nombre'=>$objeto->nombre,
             'compos'=>$objeto->compos,
             'adici'=>$objeto->adici,
             'precio'=>$objeto->precio,
-            'stock'=>'stock',
-            /* '' =>$objeto->ALIAS ASIGNADO */
+            'stock'=>$total,
             'laboratorio'=>$objeto->laboratorio,
             'tipo'=>$objeto->tipo,
             'presentacion'=>$objeto->presentacion,
             'lab_id'=>$objeto->prod_lab,
             'tipo_id'=>$objeto->prod_tipo,
             'pres_id'=>$objeto->prod_pres
-            // 'nom_lab'=>$objeto->nom_lab,
         );
     }
     $jsonstring = json_encode($json);
