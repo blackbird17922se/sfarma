@@ -172,14 +172,14 @@ if(!empty($_SESSION['rol']==1)){
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Gestión de lotes
-                <button id="btn-crear" type="button" data-toggle="modal" data-target="#crearlote" class="btn bg-gradient-primary ml-2" title="editar">Crear Producto</button>
+            <h1>Gestión de productos
+                <button id="btn-crear" type="button" data-toggle="modal" data-target="#crearproduct" class="btn bg-gradient-primary ml-2" title="editar">Crear Producto</button>
             </h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">gestión de lotes</li>
+              <li class="breadcrumb-item active">gestión de productos</li>
             </ol>
           </div>
         </div>
@@ -191,9 +191,9 @@ if(!empty($_SESSION['rol']==1)){
         <div class="container-fluid">
             <div class="card card-success">
                 <div class="card-header">
-                    <h3 class="card-title">Buscar lote</h3>
+                    <h3 class="card-title">Buscar producto</h3>
                     <div class="input-group">
-                        <input id="buscar-lote" type="text" class="form-control float-left" placeholder="Ingrese el nombre del lote">
+                        <input id="buscar-product" type="text" class="form-control float-left" placeholder="Ingrese el nombre del producto">
                         <div class="input-group-append">
                             <buttom class="btn btn-default"><i class="fas fa-search"></i></buttom>
                         </div>

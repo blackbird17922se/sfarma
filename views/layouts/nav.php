@@ -1,6 +1,8 @@
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- main -->
+  <link rel="stylesheet" href="../public/css/main.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="../public/css/css/all.min.css">
   <!-- Theme style -->
@@ -28,6 +30,32 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
       </li>
+
+      <li id="cat-carrito" class="nav-item dropdown" style="display:none">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Carrito
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <table class="carro table table-over text-nowrap p-0">
+            <thead class="table-success">
+              <tr>
+                <th>Codigo</th>
+                <th>Nombre</th>
+                <th>Concentración</th>
+                <th>Adicional</th>
+                <th>Precio</th>
+                <th>Eliminar</th>
+
+              </tr>
+            </thead>
+            <tbody id="tbd-lista"></tbody>
+          </table>
+          <a href="#" class="btn btn-danger btn-block">Procesar compra</a>
+          <a href="#" id="vaciar-carrito" class="btn btn-primary btn-block">Vaciar Carrito</a>
+
+        </div>
+      </li>
+
     </ul>
 
     <!-- Right navbar links -->
@@ -60,7 +88,7 @@
           <!-- <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image"> -->
         </div>
         <div class="info">
-          <a href="#" class="d-block"><?php echo $_SESSION['nom'];?></a>
+          <a href="adm_cat.php" class="d-block"><?php echo $_SESSION['nom'];?></a>
         </div>
       </div>
 
@@ -93,6 +121,16 @@
             </a>
           </li>
 
+          <li class="nav-item">
+            <a href="adm_lote.php" class="nav-link">
+              <i class="nav-icon fas fa-cubes"></i>
+              <p>
+                Gestión de Lotes
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-header">Compras</li>
           <li class="nav-item">
             <a href="adm_proveed.php" class="nav-link">
               <i class="nav-icon fas fa-truck"></i>

@@ -1,11 +1,81 @@
 $(document).ready(function(){
+    buscar_producto();
+    mostrar_lotes_riesgo();
     var funcion;
     var edit = false;   // bandera
 
     /* buscara los campos de lista desplegable con la clase select2 + la funcion interna select2*/
     $('.select2').select2();
-    buscar_producto();
+
+
+    /* BUSCAR / MOSTRAR */
+    function buscar_producto(consulta){
+        funcion = 'buscar';
+        // ajax
+        $.post('../controllers/productoController.php',{consulta,funcion},(response)=>{
+            // console.log(response);
+
+            const PRODUCTS = JSON.parse(response);
+            let template = '';
+            PRODUCTS.forEach(product=>{
+                // <div productId="${product.id_prod}" productx="${product.x}" productx="${product.x}" productx="${product.x}" productx="${product.x}" productx="${product.x}" class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+
+                template+=`
+                <div prodId="${product.id_prod}" prodnombre="${product.nombre}" prodprecio="${product.precio}" prodcompos="${product.compos}" prodadici="${product.adici}" prodlab="${product.lab_id}" prodtipo="${product.tipo_id}" prodpres="${product.pres_id}" class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+              <div class="card bg-light">
+                <div class="card-header text-muted border-bottom-0">
+                <i class="fas fa-lg fa-cubes mr-1"></i>${product.stock}
+                </div>
+                <div class="card-body pt-0">
+                  <div class="row">
+                    <div class="col-12">
+                      <h2 class="lead"><b>${product.nombre}</b></h2>
+                      <h4 class="lead"><b><i class="fas fa-lg fa-dollar-sign mr-1"></i>${product.precio}</b></h4>
+
+                      <ul class="ml-4 mb-0 fa-ul text-muted">
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-cubes"></i></span> ${product.compos}</li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-cubes"></i></span> ${product.adici}</li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-cubes"></i></span> ${product.laboratorio}</li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-cubes"></i></span> ${product.tipo}</li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-cubes"></i></span> ${product.presentacion}</li>
+                      </ul>
+                    </div>
+                   
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="text-right">
+
+                    <button class="editar btn btn-sm btn-success" type="button" data-toggle="modal" data-target="#crearproduct">
+                        <i class="fas fa-plus-square mr-2"></i>Agregar al carrito
+                    </button>
+          
+                  </div>
+                </div>
+              </div>
+            </div>
+             
+                `;
+            });
+
+            /* id del card body cb-products */
+            $('#cb-products').html(template);
+        })
+    }
+
+    // CUADRO DE BUSQUEDAS
+    $(document).on('keyup','#buscar-product',function(){
+        let valor = $(this).val();
+        if(valor != ''){
+            buscar_producto(valor);
+        }else{
+            buscar_producto();
+        }
+    });
     
+
+
+
     /* Funciones para llenar las listad desplegables */
     listar_labs();
     function listar_labs(){
@@ -127,73 +197,7 @@ $(document).ready(function(){
         e.preventDefault();
     });
 
-    function buscar_producto(consulta){
-        funcion = 'buscar';
-        // ajax
-        $.post('../controllers/productoController.php',{consulta,funcion},(response)=>{
-            // console.log(response);
 
-            const PRODUCTS = JSON.parse(response);
-            let template = '';
-            PRODUCTS.forEach(product=>{
-                // <div productId="${product.id_prod}" productx="${product.x}" productx="${product.x}" productx="${product.x}" productx="${product.x}" productx="${product.x}" class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
-
-                template+=`
-                <div prodId="${product.id_prod}" prodnombre="${product.nombre}" prodprecio="${product.precio}" prodcompos="${product.compos}" prodadici="${product.adici}" prodlab="${product.lab_id}" prodtipo="${product.tipo_id}" prodpres="${product.pres_id}" class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
-              <div class="card bg-light">
-                <div class="card-header text-muted border-bottom-0">
-                <i class="fas fa-lg fa-cubes mr-1"></i>${product.stock}
-                </div>
-                <div class="card-body pt-0">
-                  <div class="row">
-                    <div class="col-12">
-                      <h2 class="lead"><b>${product.nombre}</b></h2>
-                      <h4 class="lead"><b><i class="fas fa-lg fa-dollar-sign mr-1"></i>${product.precio}</b></h4>
-
-                      <ul class="ml-4 mb-0 fa-ul text-muted">
-                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-cubes"></i></span> ${product.compos}</li>
-                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-cubes"></i></span> ${product.adici}</li>
-                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-cubes"></i></span> ${product.laboratorio}</li>
-                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-cubes"></i></span> ${product.tipo}</li>
-                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-cubes"></i></span> ${product.presentacion}</li>
-                      </ul>
-                    </div>
-                   
-                  </div>
-                </div>
-                <div class="card-footer">
-                  <div class="text-right">
-                    <button class="editar btn btn-sm btn-success" type="button" data-toggle="modal" data-target="#crearproduct">
-                        <i class="fas fa-pencil-alt"></i>
-                    </button>
-                    <button class="lote btn btn-sm btn-primary" type="button" data-toggle="modal" data-target="#crearlote">
-                        <i class="fas fa-plus-square"></i>
-                    </button>
-                    <button class="borrar btn btn-sm btn-danger">
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-             
-                `;
-            });
-
-            /* id del card body cb-products */
-            $('#cb-products').html(template);
-        })
-    }
-
-    // evento paara las busquedad
-    $(document).on('keyup','#buscar-product',function(){
-        let valor = $(this).val();
-        if(valor != ''){
-            buscar_producto(valor);
-        }else{
-            buscar_producto();
-        }
-    });
 
 
     $(document).on('click','.editar',(e)=>{
@@ -315,5 +319,48 @@ $(document).ready(function(){
         })
         e.preventDefault();
     });
+
+    /* MOSTRAR LOTES EN RIESGO */
+    function mostrar_lotes_riesgo(){
+        funcion = 'buscar';
+        $.post('../controllers/loteController.php',{funcion},(response)=>{
+
+            const LOTES = JSON.parse(response);
+            let template = '';
+            LOTES.forEach(lote=>{
+                template+=`
+                    <tr>
+
+                    'id_lote'=>$objeto->id_lote,
+                    'nombre'=>$objeto->prod_nom,
+                    'compos'=>$objeto->compos,
+                    'adici'=>$objeto->adici,
+                    'vencim'=>$objeto->vencim,
+                    'prov_nom'=>$objeto->prov_nom,
+                    'stock'=>$objeto->stock,
+                    'laboratorio'=>$objeto->lab_nom,
+                    'tipo'=>$objeto->tipo_nom,
+                    'presentacion'=>$objeto->pre_nom,
+                    'mes' => $mes,
+                    'dia' => $dia,
+                    
+                        <td>${lote.id_lote}</td>
+                        <td>${lote.nombre}</td>
+                        <td>${lote.stock}</td>
+                        <td>${lote.laboratorio}</td>
+                        <td>${lote.presentacion}</td>
+                        <td>${lote.prov_nom}</td>
+                        <td>${lote.mes}</td>
+                        <td>${lote.dia}</td>
+
+                    </tr>
+                `;
+
+            });
+            $('#tbd-lotes').html(template);
+
+
+        })
+    }
 
 })
