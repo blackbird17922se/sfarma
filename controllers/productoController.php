@@ -80,3 +80,61 @@ if($_POST['funcion'] =='listar_labs'){
     $jsonstring = json_encode($json);
     echo $jsonstring;
 }
+
+/* para cuando se actualiza un precio o el stock del producto, 
+la ctualizacion se mostrada en tiempo real (por ejemplo en e carr de compras) */
+if($_POST['funcion']=='buscar_id'){
+    /* post recibido desde carrito.js : funcion recuperarLS_car ... $.post('../controllers/productoController.php',{funcion,id_producto},(response) */
+    $id=$_POST['id_producto'];
+
+    $product->buscar_id($id);
+    $json=array();
+    foreach($product->objetos as $objeto){
+        /* Funcion que busca en los lotes, los productos con id X, a medida que los va sumando, suma su cantidad */
+        $product->obtenerStock($objeto->id_prod);
+        foreach($product->objetos as $obj){
+            /* $obj->total: el total viene del alias total en el modelo >> "SELECT SUM(stock) as >>total<< ...*/
+            $total = $obj->total;
+        }
+
+        $json[]=array(
+            /* '' =>$objeto->ALIAS ASIGNADO */
+            'id_prod'=>$objeto->id_prod,
+            'nombre'=>$objeto->nombre,
+            'compos'=>$objeto->compos,
+            'adici'=>$objeto->adici,
+            'precio'=>$objeto->precio,
+            'stock'=>$total,
+            'laboratorio'=>$objeto->laboratorio,
+            'tipo'=>$objeto->tipo,
+            'presentacion'=>$objeto->presentacion,
+            'lab_id'=>$objeto->prod_lab,
+            'tipo_id'=>$objeto->prod_tipo,
+            'pres_id'=>$objeto->prod_pres
+        );
+    }
+    /* los corchetes y elcero es porque se le van a enviar los valores UNO POR UNO */
+    $jsonstring = json_encode($json[0]);
+    echo $jsonstring;
+}
+
+if($_POST['funcion']=='verificar-stock'){
+    $error =0;
+    $productos = json_decode($_POST['productos']);
+
+    foreach($productos as $objeto){
+        /* Funcion que busca en los lotes, los productos con id X, a medida que los va sumando, suma su cantidad */
+        $product->obtenerStock($objeto->id_prod);
+        foreach($product->objetos as $obj){
+            $total = $obj->total;
+        }
+        if($total>=$objeto->cantidad && $objeto->cantidad>0){
+            /* si hay stock, sume 0 */
+            $error=$error+0;
+        }else{
+            $error=$error+1;
+        }
+
+    }
+    echo $error;
+}

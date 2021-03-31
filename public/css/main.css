@@ -71,6 +71,16 @@
         font-weight: bold;
         color: #000;
     }
+}
 
+.tx-carrito{
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
 
+.contador{
+    position: absolute;
+    top: 0px;
+    right: 3px;
 }

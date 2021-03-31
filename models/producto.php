@@ -154,4 +154,20 @@ class Producto{
         $this->objetos=$query->fetchall();
         return $this->objetos;
     }
+
+
+    /* para cuando se actualiza un precio o el stock del producto, 
+    la ctualizacion se mostrada en tiempo real (por ejemplo en e carr de compras) */
+    function buscar_id($id){
+        $sql="SELECT id_prod, producto.nombre as nombre, compos, adici, precio, laboratorio.nom_lab AS laboratorio, tipo_prod.nom AS tipo, present.nom AS presentacion, prod_lab, prod_tipo, prod_pres
+        FROM producto
+        JOIN laboratorio ON prod_lab = id_lab
+        JOIN tipo_prod ON prod_tipo = id_tipo_prod
+        JOIN present ON prod_pres = id_present WHERE id_prod = :id
+        ";
+        $query = $this->acceso->prepare($sql);
+        $query->execute(array(':id'=>$id));
+        $this->objetos=$query->fetchall();
+        return $this->objetos;
+    }
 }

@@ -50,7 +50,7 @@ if(!empty($_SESSION['rol']==1)){
 
                         <div class="form-group">
                             <label for="precio">Precio</label>
-                            <input type="number" class="form-control" id="precio" name="precio" aria-describedby="precioHelp" required>
+                            <input type="number" step="any" class="form-control" id="precio" name="precio" aria-describedby="precioHelp" required>
                             <!-- <input type="hidden" id="id_edit-lab"> -->
                         </div>
 

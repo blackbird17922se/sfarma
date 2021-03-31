@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="../public/css/sweetalert2.css">
   <!-- selt2 -->
   <link rel="stylesheet" href="../public/css/select2.css">
+  <!-- Seccion compras -->
+  <link rel="stylesheet" href="../public/css/compra.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -32,9 +34,10 @@
       </li>
 
       <li id="cat-carrito" class="nav-item dropdown" style="display:none">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="tx-carrito nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Carrito
         </a>
+        <span id="contador" class="contador badge badge-danger"></span>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <table class="carro table table-over text-nowrap p-0">
             <thead class="table-success">
@@ -50,7 +53,7 @@
             </thead>
             <tbody id="tbd-lista"></tbody>
           </table>
-          <a href="#" class="btn btn-danger btn-block">Procesar compra</a>
+          <a href="#" id="procesar-pedido" class="btn btn-danger btn-block">Procesar compra</a>
           <a href="#" id="vaciar-carrito" class="btn btn-primary btn-block">Vaciar Carrito</a>
 
         </div>
