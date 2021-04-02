@@ -18,7 +18,7 @@ $(document).ready(function () {
             { "data": "total" },
             { "data": "vendedor" },
             { "defaultContent": `
-                <button class="btn btn-secondary"><i class="fas fa-print"></i></button>
+                <button class="imprimir btn btn-secondary"><i class="fas fa-print"></i></button>
                 <button class="ver btn btn-success" type="button" data-toggle="modal" data-target="#vista-venta"><i class="fas fa-search"></i></button>
                 <button class="borrar btn btn-danger"><i class="fas fa-window-close"></i></button>
             `},
@@ -26,7 +26,18 @@ $(document).ready(function () {
         language: espanol
     } );
 
-    /* Una parte de elimnar */
+    /* CODIGO DE GENERAR PDF */
+    $('#tabla_venta tbody').on('click','.imprimir',function(){
+        let datos = datatable.row($(this).parents()).data();
+        let id= datos.id_venta;
+        $.post('../controllers/PDFController.php',{id},(response)=>{
+            console.log(response);
+            window.open('../pdf/pdf-'+id+'.pdf','_blank');
+        });
+    });
+
+
+    /* BORRAR VENTA */
     $('#tabla_venta tbody').on('click','.borrar',function(){
         let datos = datatable.row($(this).parents()).data();
         let id= datos.id_venta;
@@ -50,21 +61,20 @@ $(document).ready(function () {
             reverseButtons: true
         }).then((result) => {
             if (result.value) {
-                /* DE AQUI PARA ABAJO TOCA MODIFICARLO PARA QUE ELIMINE */
-                $.post('../controllers/loteController.php',{ID,funcion},(response)=>{
+                $.post('../controllers/detalleVentaController.php',{id,funcion},(response)=>{
                     // console.log(response);
-                    edit==false;
-                    if(response=='borrado'){
+                    // edit==false;
+                    if(response=='delete'){
                         swalWithBootstrapButtons.fire(
                             'Eliminado '+ID+'!',
-                            'El lote ha sido eliminado.',
+                            'La venta ha sido eliminada.',
                             'success'
                         )
-                        buscar_lote();
-                    }else{
+                        // buscar_lote();
+                    }else if(response=='nodelete'){
                         swalWithBootstrapButtons.fire(
                             'Error al eliminar '+ID,
-                            'El lote está siendo usado en un lote.',
+                            'No se pudo eliminar la venta.',
                             'error'
                         )
                     }
@@ -111,21 +121,14 @@ $(document).ready(function () {
                 $('#registros').html(template);
                 
             });
-            console.log(response);
-        
+            console.log(response);   
         })
     });
-
-
-
-
-
-
-
-
-
 });
 
+
+
+/* DATATABLE A ESPAÑOL */
 let espanol = {
     "aria": {
         "sortAscending": "Activar para ordenar la columna de manera ascendente",

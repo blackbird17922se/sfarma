@@ -1,4 +1,5 @@
 <?php
+require_once('../vendor/autoload.php');
 include '../models/producto.php';
 $product = new Producto();
 
@@ -190,4 +191,68 @@ if($_POST['funcion']=='traer_productos'){
         }
     }
     echo $html;
+}
+
+
+if($_POST['funcion']=='rep_prod'){
+    date_default_timezone_set('America/Bogota');
+    $fecha = date('Y-m-d H:i:s');
+    // $html = getHtml($id_venta);
+    $html = '
+
+        <header>
+            <h1>Reporte productos</h1>
+            <div id="project">
+                <div><span>Fecha: </span>'.$fecha.'</div>
+            </div>
+        </header>
+        <table>
+            <thead>
+                <tr>
+                    <th>N</th>
+                    <th>Producto</th>
+                    <th>Concentracion</th>
+                    <th>Adicional</th>
+                    <th>Laboratorio</th>
+                    <th>Presentacion</th>
+                    <th>Tipo</th>
+                    <th>Stock</th>
+                    <th>Precio</th>
+                </tr>
+            </thead>
+            <tbody>
+    ';
+    $product->reporteProductos();
+    $contador = 0;
+    foreach ($product->objetos as $objeto) {
+        $contador++;
+
+        $product->obtenerStock($objeto->id_prod);
+        foreach($product->objetos as $obj){
+            $stock = $obj->total;
+        }
+    
+        $html.='
+            <tr>
+                <th class="service">'.$contador.'</th>            
+                <th class="service">'.$objeto->nombre.'</th>
+                <th class="service">'.$objeto->compos.'</th>
+                <th class="service">'.$objeto->adici.'</th>
+                <th class="service">'.$objeto->laboratorio.'</th>
+                <th class="service">'.$objeto->presentacion.'</th>
+                <th class="service">'.$objeto->tipo.'</th>
+                <th class="service">'.$stock.'</th>
+                <th class="service">'.$objeto->precio.'</th>
+            </tr>
+        ';
+    }
+    $html.='
+            </tbody>
+        </table>
+    ';
+    // $css = file_get_contents("../css/pdf.css");
+    $mpdf = new \Mpdf\Mpdf();
+    // $mpdf->WriteHTML($css, \Mpdf\HTMLParserMode::HEADER_CSS);
+    $mpdf->WriteHTML($html, \Mpdf\HTMLParserMode::HTML_BODY);
+    $mpdf->Output("../pdf/pdf-".$_POST['funcion'].".pdf","F");
 }

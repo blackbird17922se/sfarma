@@ -174,6 +174,7 @@ if(!empty($_SESSION['rol']==1)){
           <div class="col-sm-6">
             <h1>Gestión de productos
                 <button id="btn-crear" type="button" data-toggle="modal" data-target="#crearproduct" class="btn bg-gradient-primary ml-2" title="editar">Crear Producto</button>
+                <button id="btn-reporte" type="button" class="btn bg-gradient-success ml-2">Reporte Productos</button>
             </h1>
           </div>
           <div class="col-sm-6">

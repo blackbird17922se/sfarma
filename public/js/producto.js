@@ -316,4 +316,15 @@ $(document).ready(function(){
         e.preventDefault();
     });
 
+    /* CODIGO DE GENERAR PDF */
+    $(document).on('click','#btn-reporte',(e)=>{
+        funcion = 'rep_prod';
+        $.post('../controllers/productoController.php',{funcion},(response)=>{
+            console.log(response);
+            /* Blanc es para que abra una estaña nueva */
+            window.open('../pdf/pdf-'+funcion+'.pdf','_blank');
+        });
+    })
+
+
 })

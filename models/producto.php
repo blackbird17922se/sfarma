@@ -170,4 +170,22 @@ class Producto{
         $this->objetos=$query->fetchall();
         return $this->objetos;
     }
+
+
+    /* FUNCION PARA QUE TRAIGA TODOS OS PRODUCTOS PARA EL PDF */
+    function reporteProductos(){
+
+        $sql = "SELECT id_prod, producto.nombre as nombre, compos, adici, precio, laboratorio.nom_lab AS laboratorio, tipo_prod.nom AS tipo, present.nom AS presentacion, prod_lab, prod_tipo, prod_pres
+        FROM producto
+        JOIN laboratorio ON prod_lab = id_lab
+        JOIN tipo_prod ON prod_tipo = id_tipo_prod
+        JOIN present ON prod_pres = id_present AND producto.nombre NOT LIKE ''
+        ORDER BY producto.nombre
+        ";
+        $query = $this->acceso->prepare($sql);
+        $query->execute();
+        $this->objetos=$query->fetchall();
+        return $this->objetos;
+        
+    }
 }

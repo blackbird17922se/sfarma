@@ -97,8 +97,9 @@ if($_POST['funcion'] == 'registrarCompra'){
             $subtotal = $prod->cantidad * $prod->precio;
             /* INSERTAR EL REGISTRO DE LA VENTA */
             $conexion->exec(
-                "INSERT INTO venta_prod(cant,subtotal,prod_id_prod,venta_id_venta) 
+                "INSERT INTO venta_prod(precio,cant,subtotal,prod_id_prod,venta_id_venta) 
                 VALUES(
+                    '$prod->precio',
                     '$prod->cantidad',
                     '$subtotal',
                     '$prod->id_prod',

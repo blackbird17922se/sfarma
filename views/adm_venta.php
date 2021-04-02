@@ -38,7 +38,7 @@ if(!empty($_SESSION['rol']==1)){
                         <thead class="table-success">
                             <tr>
                                 <th>Cantidad</th>
-                                <th>Precio</th>
+                                <th>Precio Unidad</th>
                                 <th>Producto</th>
                                 <th>Concentracion</th>
                                 <th>Adicional</th>
@@ -59,7 +59,7 @@ if(!empty($_SESSION['rol']==1)){
 
                 </div>
                 <div class="card-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-outline-secoundary float-right m-1">Cerrar</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-outline-secondary float-right m-1">Cerrar</button>
                     
                 </div>
             </div>
