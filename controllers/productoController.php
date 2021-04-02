@@ -134,7 +134,60 @@ if($_POST['funcion']=='verificar-stock'){
         }else{
             $error=$error+1;
         }
-
     }
     echo $error;
+}
+
+
+/* Traer productos */
+if($_POST['funcion']=='traer_productos'){
+    // echo "here";
+    $html = "";
+
+    /* 
+    * recibir la variable productos enviada desde carrito js en async function recuperarLS_car_compra():
+    * body: 'funcion='+funcion+'&&productos='+JSON.stringify(productos)
+    * Decodificar el stryngify enviado
+    */
+    $productos = json_decode($_POST['productos']);
+
+    /* Recorrer la variable productos */
+    /* Un $resultado es un producto de toda la lista */
+    foreach($productos as $resultado){
+        $product->buscar_id($resultado->id_prod);
+        // var_dump($product);
+
+        /* Acceder a todos los datos de ese producto al acceder a ->objetos*/
+        foreach($product->objetos as $objeto){
+
+            /* Calcular subtotal */
+            $subtotal= $objeto->precio * $resultado->cantidad;
+
+            /* Obtener el stock */
+            $product->obtenerStock($objeto->id_prod);
+            foreach($product->objetos as $obj){
+                $stock = $obj->total;
+            }
+
+            $html.="
+            <tr prodId='$objeto->id_prod' prodPrecio='$objeto->precio'>
+                <td>$objeto->nombre</td>
+                <td>$stock</td>
+                <td class='precio'>$objeto->precio</td>
+                <td>$objeto->compos</td>
+                <td>$objeto->adici</td>
+                <td>$objeto->laboratorio</td>
+                <td>$objeto->presentacion</td>
+                <td>
+                    <input type='number' min='1' class='form-control cant_producto' value='$resultado->cantidad'>
+                </td>
+                <td class='subtotales'>
+                    <h5>$subtotal</h5>
+                </td>
+                <td><button class='btn btn-danger borrar-producto' ><i class='fas fa-times-circle'></i></button></td>
+            </tr>
+            ";
+        }
+    }
+    echo $html;
 }

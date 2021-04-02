@@ -39,7 +39,7 @@ $(document).ready(function(){
                 $('#form-crear-tipo').trigger('reset');
                 buscar_tipo();
             }
-            edit==false;
+            edit=false;
         });
         e.preventDefault();
     });

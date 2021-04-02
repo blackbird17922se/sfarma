@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(!empty($_SESSION['rol']==1)){
+if(!empty($_SESSION['rol']==1 || $_SESSION['rol']==2)){
     include_once "layouts/header.php";
     include_once "layouts/nav.php";
 ?>
@@ -10,35 +10,35 @@ if(!empty($_SESSION['rol']==1)){
         <div class="modal-content">
             <div class="card card-success">
                 <div class="card-header">
-                    <h3 class="card-title">Crear Lab</h3>
+                    <h3 class="card-title">Laboratorio</h3>
                     <button data-dismiss="modal" aria-label="close" class="close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="card-body">
                     <div class="alert alert-success text-center" id="add-lab" style="display: none;">
-                        <span><i class="fas fa-check m-1"></i>Se agrego correctamete</span>
+                        <span><i class="fas fa-check m-1"></i>Laboratorio Registrado</span>
                     </div>
 
                     <div class="alert alert-danger text-center" id="noadd-lab" style="display: none;">
-                        <span><i class="fas fa-times m-1"></i>ya xiste</span>
+                        <span><i class="fas fa-times m-1"></i>Ya existe ese laboratorio</span>
                     </div>
 
                     <div class="alert alert-success text-center" id="edit-lab" style="display: none;">
-                        <span><i class="fas fa-check m-1"></i>Se edito correctamete</span>
+                        <span><i class="fas fa-check m-1"></i>Laboratorio Actualizado</span>
                     </div>
 
                     <form action="" id="form-crear-lab">
                         <div class="form-group">
-                            <label for="nom_lab">Nombre del laboratirio</label>
+                            <label for="nom_lab">Nombre del Laboratorio</label>
                             <input type="text" class="form-control" id="nom_lab" name="nom_lab" aria-describedby="nom_labHelp" required>
                             <input type="hidden" id="id_edit-lab">
-                            <small id="nom_labHelp" class="form-text text-muted">ingrese nombre laboratorio.</small>
+                            <!-- <small id="nom_labHelp" class="form-text text-muted">ingrese nombre laboratorio.</small> -->
                         </div>
                 </div>
                 <div class="card-footer">
                     <button type="submit" class="bnt btn-gradient-primary float-right m-1">Guardar</button>
-                    <button type="button" data-dismiss="modal" class="bnt btn-outline-secoundary float-right m-1">cancela</button>
+                    <button type="button" data-dismiss="modal" class="bnt btn-outline-secoundary float-right m-1">Cancelar</button>
                     </form>
                 </div>
             </div>
@@ -53,7 +53,7 @@ if(!empty($_SESSION['rol']==1)){
             <div class="card card-success">
 
                 <div class="card-header">
-                    <h3 class="card-title">Crear tipo</h3>
+                    <h3 class="card-title">Tipo de Producto</h3>
                     <button data-dismiss="modal" aria-label="close" class="close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -100,7 +100,7 @@ if(!empty($_SESSION['rol']==1)){
         <div class="modal-content">
             <div class="card card-success">
                 <div class="card-header">
-                    <h3 class="card-title">Crear Presentación</h3>
+                    <h3 class="card-title">Presentación</h3>
                     <button data-dismiss="modal" aria-label="close" class="close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -164,9 +164,9 @@ if(!empty($_SESSION['rol']==1)){
                 <div class="card">
                     <div class="card-header">
                         <ul class="nav nav-pills">
-                            <li class="nav-item"><a href="#lab" class="nav-link active" data-toggle="tab">Laboratorio</a></li>
-                            <li class="nav-item"><a href="#tipo" class="nav-link" data-toggle="tab">Tipo</a></li>
-                            <li class="nav-item"><a href="#present" class="nav-link" data-toggle="tab">Presentacion</a></li>
+                            <li class="nav-item"><a href="#lab" class="nav-link active" data-toggle="tab">Laboratorios</a></li>
+                            <li class="nav-item"><a href="#tipo" class="nav-link" data-toggle="tab">Tipos de Productos</a></li>
+                            <li class="nav-item"><a href="#present" class="nav-link" data-toggle="tab">Presentación del Producto</a></li>
                         </ul>
                     </div>
 
@@ -178,7 +178,7 @@ if(!empty($_SESSION['rol']==1)){
                             <div class="tab-pane active" id="lab">
                                 <div class="card card-success">
                                     <div class="card-header">
-                                        <div class="card-title">Buscar Laboratorio<button type="button" data-toggle="modal" data-target="#crearlab" class="btn bg-gradient-primary btn-sm m-2">Crear lab</button></div>
+                                        <div class="card-title">Buscar Laboratorio<button type="button" data-toggle="modal" data-target="#crearlab" class="btn bg-gradient-primary btn-sm m-2">Nuevo Laboratorio</button></div>
                                         <div class="input-group">
                                             <input id="busq-lab" type="text" class="form-control float-left" placeholder="Ingrese nombre">
                                             <div class="input-group-append">

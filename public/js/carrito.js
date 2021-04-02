@@ -116,7 +116,7 @@ $(document).ready(function(){
         productos.forEach(producto => {
             id_producto =producto.id_prod;
             $.post('../controllers/productoController.php',{funcion,id_producto},(response)=>{
-                console.log(response);
+                // console.log(response);
                 let template_car='';
                 /* decodificar el json response */
                 let json = JSON.parse(response);
@@ -176,51 +176,27 @@ $(document).ready(function(){
         }
     }
 
+
     /*
      *Funcion para imprimir en la tabla de la vista adm_compra
      *los items que se han almacenado en el local storage
     */
+    async function recuperarLS_car_compra(){
 
-    function recuperarLS_car_compra(){
-
-        let productos, id_producto;
-
+        let productos;
+        funcion="traer_productos";
         productos = recuperarLS();
-        funcion="buscar_id";
-        
-        productos.forEach(producto => {
-            id_producto =producto.id_prod;
-            $.post('../controllers/productoController.php',{funcion,id_producto},(response)=>{
-                console.log(response);
 
-                let template_compra='';
-                /* decodificar el json response */
-                let json = JSON.parse(response);
-                
-                /* ${producto.x}:el valor de 'x' viene de los indicadores suministrados en const PRODUCTO*/
-                template_compra=`
-                    <tr prodId="${producto.id_prod}" prodPrecio="${producto.precio}">
-                        <td>${json.nombre}</td>
-                        <td>${json.stock}</td>
-                        <td class="precio">${json.precio}</td>
-                        <td>${json.compos}</td>
-                        <td>${json.adici}</td>
-                        <td>${json.laboratorio}</td>
-                        <td>${json.presentacion}</td>
-                        <td>
-                            <input type="number" min="1" class="form-control cant_producto" value="${producto.cantidad}">
-                        </td>
-                        <td class="subtotales">
-                            <h5>${json.precio*producto.cantidad}</h5>
-                        </td>
-                        <td><button class="btn btn-danger borrar-producto" ><i class="fas fa-times-circle"></i></button></td>
-                    </tr>
-                `;
-                /* no se hace forech porque se esta recibiendo objeto por objeto */
-                $('#lista-compra').append(template_compra);          
-            });        
+        const RESPONSE = await fetch('../controllers/productoController.php',{
+            method:'POST',
+            headers: {'Content-Type':'application/x-www-form-urlencoded'},
+            body: 'funcion='+funcion+'&&productos='+JSON.stringify(productos)
         });
+        let resultado = await RESPONSE.text();
+        // console.log(resultado);
+        $('#lista-compra').append(resultado);          
     }
+
 
     /* Evento boton actualizar */
     $(document).on('click','#actualizar',(e)=>{
@@ -308,6 +284,7 @@ $(document).ready(function(){
     }
 
     function procesarCompra(){
+        let nombre = $('#cliente').val();
         if(recuperarLS().length == 0){
             Swal.fire({
                 icon: 'error',
@@ -320,12 +297,16 @@ $(document).ready(function(){
             verificarStock().then(error=>{
                 // console.log(error);
                 if(error==0){
+                    registrarCompra(nombre);
                     Swal.fire({
                         position: 'center',
                         icon: 'success',
                         title: 'Compra Exitosa',
                         showConfirmButton: false,
                         timer: 1500
+                    }).then(function(){
+                        eliminarLS();
+                        location.href = '../views/adm_cat.php'
                     });
 
                 }else{
@@ -354,4 +335,19 @@ $(document).ready(function(){
         let error = await RESPONSE.text();
         return error;
     }
+
+    function registrarCompra(nombre){
+        funcion = 'registrarCompra';
+        /* capturar el dato en el campo total . get[0]= obtener el primer dato*/
+        let total = $('#total').get(0).textContent;
+        let productos = recuperarLS();
+        // let nomb = "mxpr";
+        /* nviar ese producto al controlador */
+        let json = JSON.stringify(productos);
+        $.post('../controllers/compraController.php',{funcion,total,json,nombre},(response)=>{
+            console.log(response);
+        })
+
+    }
+
 })

@@ -39,7 +39,7 @@ $(document).ready(function(){
                 $('#form-crear-present').trigger('reset');
                 buscar_present();
             }
-            edit==false;
+            edit=false;
         });
         e.preventDefault();
     });

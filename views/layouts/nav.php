@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="../public/css/select2.css">
   <!-- Seccion compras -->
   <link rel="stylesheet" href="../public/css/compra.css">
+  <!-- Datatable -->
+  <link rel="stylesheet" href="../public/css/datatables.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -139,6 +141,17 @@
               <i class="nav-icon fas fa-truck"></i>
               <p>
                 Compras a proveedores
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-header">Ventas</li>
+          <!-- items que contiene la seccion Ventas -->
+          <li class="nav-item">
+            <a href="adm_venta.php" class="nav-link">
+              <i class="nav-icon fas fa-notes-medical"></i>
+              <p>
+                Gestión de Ventas
               </p>
             </a>
           </li>

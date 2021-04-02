@@ -14,9 +14,7 @@ $(document).ready(function(){
             funcion="editar";
         }
 
-        // funcion = 'crear';
         $.post('../controllers/laboratorioController.php',{nom_lab,id_editado,funcion},(response)=>{
-            // console.log(response)
             if(response=='add'){
                 $('#add-lab').hide('slow');
                 $('#add-lab').show(1000);
@@ -37,7 +35,7 @@ $(document).ready(function(){
                 $('#form-crear-lab').trigger('reset');
                 busq_lab();
             }
-            edit==false;
+            edit = false;
         });
         e.preventDefault();
     });
