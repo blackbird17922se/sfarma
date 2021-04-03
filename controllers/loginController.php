@@ -14,7 +14,7 @@ if(!empty($_SESSION['rol'])){
             header("Location: ../views/adm_cat.php");
         break;
         case 2:
-            header("Location: ../views/tec_cat.php");
+            header("Location: ../views/adm_cat.php");
         break;
     }  
 
@@ -34,7 +34,7 @@ if(!empty($_SESSION['rol'])){
                 header("Location: ../views/adm_cat.php");
             break;
             case 2:
-                header("Location: ../views/tec_cat.php");
+                header("Location: ../views/adm_cat.php");
             break;
         }  
     }else{

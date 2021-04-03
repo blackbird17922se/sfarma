@@ -35,11 +35,7 @@ if(!empty($_SESSION['rol']==1)){
                             <label for="id_lote">Codigo lote:</label>
                             <label id="id_lote">NombreX</label>
                         </div>
-<!-- 
-                        <div class="form-group">
-                            <label for="lote_id_prov">Seleccione proveedor</label>
-                            <select id="lote_id_prov" class="form-control select2" style="width: 100%;"></select>
-                        </div> -->
+
 
                         <div class="form-group">
                             <label for="stock">Stock</label>
