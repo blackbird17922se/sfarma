@@ -228,6 +228,3 @@ include_once "layouts/footer.php";
 }
 ?>
 <script src="../public/js/producto.js"></script>
-<!-- <script src="../public/js/laboratorio.js"></script>
-<script src="../public/js/tipo.js"></script>
-<script src="../public/js/presentacion.js"></script> -->
