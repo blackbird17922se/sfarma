@@ -14,7 +14,6 @@ $(document).ready(function(){
     buscarUsuario(id_usu);
 
 
-
     /* Funcion para que a traves del id capturado, ejecute una consulta a la bd */
     function buscarUsuario(id) {
         funcion = "buscarUsuario";
@@ -54,7 +53,7 @@ $(document).ready(function(){
         edit = true;
 
         $.post('../controllers/usuarioController.php',{id_usu,funcion},(response)=>{
-            console.log(response);
+            // console.log(response);
             const USUARIOX = JSON.parse(response);
 
             /* Agregarle a los campos el valor obtenido en el respones */
@@ -72,7 +71,7 @@ $(document).ready(function(){
 
             funcion = 'editarUsuario';
             $.post('../controllers/usuarioController.php',{id_usu,funcion,nom,ape},(response)=>{
-                console.log(response);
+                // console.log(response);
                 if(response == 'editado'){
                     $('#editado').hide('slow');
                     $('#editado').show(1000);

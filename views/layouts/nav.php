@@ -104,10 +104,32 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+
+          <li class="nav-header">Usuario</li>
+          <!-- items que contiene la seccion Ventas -->
+          <li class="nav-item">
+            <a href="editar_perfil.php" class="nav-link">
+              <i class="nav-icon fas fa-user-cog"></i>
+              <p>
+                Mi Perfil
+              </p>
+            </a>
+          </li>
+
+          <?php if($_SESSION['rol'] == 1){?>
+          <li class="nav-item">
+            <a href="adm_usuario.php" class="nav-link">
+              <i class="nav-icon fas fa-user-cog"></i>
+              <p>
+                Gestión de Usuarios
+              </p>
+            </a>
+          </li>
+
+          <?php }?>
+
        
           <li class="nav-header">Almacen</li>
-          
-          <!-- items que contiene la seccion almacen -->
           <li class="nav-item">
             <a href="adm_product.php" class="nav-link">
               <i class="nav-icon fas fa-pills"></i>
@@ -145,6 +167,7 @@
             </a>
           </li>
 
+          
           <li class="nav-header">Ventas</li>
           <!-- items que contiene la seccion Ventas -->
           <li class="nav-item">
@@ -155,6 +178,8 @@
               </p>
             </a>
           </li>
+
+
 
         </ul>
       </nav>

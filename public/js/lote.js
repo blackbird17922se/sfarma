@@ -14,7 +14,7 @@ $(document).ready(function(){
             let template = '';
             LOTES.forEach(lote=>{
                 template+=`
-                <div loteId="${lote.id_lote}" loteStock="${lote.stock}" class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">`;
+                <div loteId="${lote.id_lote}" loteStock="${lote.stock}" class="col-12 col-sm-6 col-md-3 align-items-stretch">`;
                 if(lote.estado=='light'){
                     template+=`<div class="card bg-light">`;
                 }

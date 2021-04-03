@@ -31,7 +31,6 @@ if($_POST['funcion'] == 'buscarUsuario'){
 }
 
 
-
 /* FUNCION para capturar datos */
 if($_POST['funcion'] == 'capturarDatos'){
 
@@ -69,4 +68,64 @@ if($_POST['funcion']=='cambiarContras'){
     $newpass = $_POST['newpass'];
     $id_usu = $_POST['id_usu'];
     $usuario->cambiarContras($oldpass,$newpass,$id_usu);
+}
+
+
+/* BUSQUEDA Y CARGA DE USUARIOS */
+if($_POST['funcion'] == 'cargarUsuarios'){
+
+    $json=array();
+
+    $usuario->buscar();
+
+    foreach ($usuario->objetos as $objeto) {
+        /*  */
+        $json[] = array(
+            /* 'nombreLlave' => $objetoretornado -> nombre campo de la base de datos (o alias asignado) */
+            'id_usu' =>$objeto->id_usu,
+            'nom' => $objeto->nom,
+            'ape' => $objeto->ape,
+            'dni_us' => $objeto->dni_us,
+            'rol' => $objeto->nom_rol
+        );
+    }
+
+    $jsonstring = json_encode($json);
+    echo $jsonstring;
+}
+
+
+/* CREAR USUARIOS */
+if($_POST['funcion']=='crearUsuario'){
+
+    $nom = $_POST['nom'];
+    $ape = $_POST['ape'];
+    $dni_us = $_POST['dni_us'];
+    $contras = $_POST['contras'];
+    $rol = $_POST['rol'];
+
+    $usuario->crearUsuario($nom,$ape,$dni_us,$contras,$rol);
+}
+
+
+/* LISTAR EN EL FORMULARIO DE CREAR USUARIO LA LISTA DE ROLES */
+if($_POST['funcion'] =='listarRoles'){
+    $usuario->listarRoles();
+    $json=array();
+    foreach($usuario->objetos as $objeto){
+        $json[]=array(
+            'id_rol'=>$objeto->id_rol,
+            'nom_rol'=>$objeto->nom_rol
+        );
+    }
+    $jsonstring = json_encode($json);
+    echo $jsonstring;
+}
+
+
+/* ELIMINAR USUARIO */
+if($_POST['funcion'] =='borrar'){
+    /* OJO: $_POST['ID'] viene desde labratorio.js en la const ID = $(ELEM).attr('labId'); */
+    $id = $_POST['ID'];
+    $usuario->borrar($id);
 }

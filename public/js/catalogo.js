@@ -25,7 +25,7 @@ $(document).ready(function(){
                 // <div productId="${product.id_prod}" productx="${product.x}" productx="${product.x}" productx="${product.x}" productx="${product.x}" productx="${product.x}" class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
 
                 template+=`
-                <div prodId="${product.id_prod}" prodStock="${product.stock}" prodnombre="${product.nombre}" prodprecio="${product.precio}" prodcompos="${product.compos}" prodadici="${product.adici}" prodlab="${product.lab_id}" prodtipo="${product.tipo_id}" prodpres="${product.pres_id}" class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+                <div prodId="${product.id_prod}" prodStock="${product.stock}" prodnombre="${product.nombre}" prodprecio="${product.precio}" prodcompos="${product.compos}" prodadici="${product.adici}" prodlab="${product.lab_id}" prodtipo="${product.tipo_id}" prodpres="${product.pres_id}" class="col-12 col-sm-6 col-md-2 align-items-stretch">
               <div class="card bg-light">
                 <div class="card-header text-muted border-bottom-0">
                 <i class="fas fa-lg fa-cubes mr-1"></i>${product.stock}
@@ -137,7 +137,7 @@ $(document).ready(function(){
     function listar_proveeds(){
         funcion = "listar_proveeds";
         $.post('../controllers/proveedController.php',{funcion},(response)=>{
-            console.log(response);
+            // console.log(response);
             const PROVEEDS = JSON.parse(response);
             let template = '';
             PROVEEDS.forEach(proveed=>{
@@ -169,7 +169,7 @@ $(document).ready(function(){
         }
         // funcion = "crear";
         $.post('../controllers/productoController.php',{funcion,id,nombre,compos,adici,precio,prod_lab,prod_tipo,prod_present},(response)=>{
-            console.log(response);
+            // console.log(response);
 
             if(response=='add'){
                 $('#add-product').hide('slow');

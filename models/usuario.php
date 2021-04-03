@@ -73,4 +73,82 @@ class Usuario{
             echo 'noupdate';
         }
     }
+
+
+    function buscar(){
+        session_start();
+            $usu_actual = $_SESSION['usuario'];
+        if(!empty($_POST['consulta'])){
+            
+
+
+
+            $consulta = $_POST['consulta'];
+            $sql="SELECT * FROM usuario JOIN rol ON rol = id_rol WHERE nom LIKE :consulta AND id_usu != :usu_actual";
+            $query = $this->acceso->prepare($sql);
+            /* %% Pasa  la variable $consulta como una cadena al LIKE */
+            $query->execute(array(
+                ':consulta'=>"%$consulta%",
+                ':usu_actual' => $usu_actual
+                ));
+            $this->objetos=$query->fetchall();
+            return $this->objetos;
+        }else{
+            $sql = "SELECT * FROM usuario JOIN rol ON rol = id_rol WHERE nom NOT LIKE '' AND id_usu != :usu_actual ORDER BY nom";
+            $query = $this->acceso->prepare($sql);
+            $query->execute(array(':usu_actual' => $usu_actual));
+            $this->objetos=$query->fetchall();
+            return $this->objetos;
+        }
+    }
+
+
+    function crearUsuario($nom,$ape,$dni_us,$contras,$rol){
+        /* Verificar si el usuario ya existe con ese dni */
+        $sql = "SELECT id_usu FROM usuario WHERE dni_us = :dni_us";
+        $query = $this->acceso->prepare($sql);
+        $query->execute(array(
+            ':dni_us' => $dni_us
+        ));
+        $this->objetos=$query->fetchall();
+        /* Si ya existe un usuario registrado con ese DNI entonces no registrar y generar mensaje */
+        if(!empty($this->objetos)){
+            echo 'noadd';
+        }else{
+            /* Sino, entoces agregar usuario */
+            $sql = "INSERT INTO usuario(nom, ape, contras, rol, dni_us) 
+            VALUES (:nom, :ape, :contras, :rol, :dni_us)";
+            $query = $this->acceso->prepare($sql);
+            $query->execute(array(
+                ':nom'       => $nom,
+                ':ape'       => $ape,
+                ':contras'   => $contras,
+                ':rol'       => $rol,
+                ':dni_us'    => $dni_us
+            ));
+            echo 'add';
+        }
+    }
+
+
+    function listarRoles(){
+        $sql="SELECT * FROM rol ORDER BY nom_rol ASC";
+        $query = $this->acceso->prepare($sql);
+        $query->execute();
+        $this->objetos=$query->fetchall();
+        return $this->objetos;
+    }
+
+
+    function borrar($id){
+        $sql = "DELETE FROM usuario WHERE id_usu = :id";
+        $query = $this->acceso->prepare($sql);
+        $query->execute(array(':id' => $id));
+
+        if(!empty($query->execute(array(':id' => $id)))){
+            echo 'borrado';
+        }else{
+            echo 'noborrado';
+        }
+    }
 }

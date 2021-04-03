@@ -7,6 +7,7 @@ class Producto{
         $db = new Conexion();
         $this->acceso=$db->pdo;
     }
+    
 
     function crear($nombre,$compos,$adici,$precio,$prod_lab,$prod_tipo,$prod_pres){
         $sql = "SELECT id_prod FROM producto WHERE
@@ -51,6 +52,7 @@ class Producto{
         }
     }
 
+
     function buscar(){
         if(!empty($_POST['consulta'])){
             /* si el imput de bsiqueda esta lleno entonces */
@@ -80,6 +82,7 @@ class Producto{
             return $this->objetos;
         }
     }
+
 
     function editar($id,$nombre,$compos,$adici,$precio,$prod_lab,$prod_tipo,$prod_pres){
         $sql = "SELECT id_prod FROM producto WHERE id_prod != :id
@@ -133,6 +136,7 @@ class Producto{
         }
     }
 
+
     function borrar($id){
         $sql = "DELETE FROM producto WHERE id_prod = :id";
         $query = $this->acceso->prepare($sql);
@@ -144,6 +148,7 @@ class Producto{
             echo 'noborrado';
         }
     }
+
 
     /* Sumar "sum()" todos los campos stock, esa suma se llamara total, buscara todos lotes con un id producto X
     y a esos lotes los mumara todo el stock */

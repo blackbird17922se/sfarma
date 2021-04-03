@@ -199,7 +199,6 @@ $(document).ready(function(){
     $(document).on('click','.editar',(e)=>{
         
         const ELEM = $(this)[0].activeElement.parentElement.parentElement.parentElement.parentElement;
-        // const ID = 'ass';
         const ID = $(ELEM).attr('prodId');
         const NOMB = $(ELEM).attr('prodnombre');
         const COMPOS = $(ELEM).attr('prodcompos');
