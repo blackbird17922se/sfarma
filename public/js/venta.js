@@ -4,7 +4,18 @@ $(document).ready(function () {
     //     console.log(JSON.parse(response));
     // });
 
+    
+    /* CONSULTAR USUARIO PARA OCULTA O O EL BORTON ELIMINAR (EXPERIMENTO ADANDONADO)  */
+    // function consultarRol() {
+    //     funcion = "consultarRol";
+    //     /* Hacer el Ajax de tipo post. requiere el url, los datos a pasarle y una funcion a ejecuttar */
+    //     $.post('../controllers/usuarioController.php',{funcion},(response)=>{
+    //         console.log(response);
+    //     })
+    // }
+
     let datatable = $('#tabla_venta').DataTable( {
+        
         "ajax": {
             "url":"../controllers/ventaController.php",
             "method":"POST",

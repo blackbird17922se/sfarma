@@ -41,6 +41,7 @@ if(!empty($_SESSION['rol']==1 || $_SESSION['rol']==2)){
                             </div> -->
                             <h1 class="titulo_cp">SOLICITUD DE COMPRA</h1>
                             <div class="datos_cp">
+                                <small>(Datos Opcionales)</small>
                                 <div class="form-group row">
                                     <span>Cliente: </span>
                                     <div class="input-group-append col-md-6">
@@ -48,9 +49,9 @@ if(!empty($_SESSION['rol']==1 || $_SESSION['rol']==2)){
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <span>DNI: </span>
+                                    <span>Idenificación: </span>
                                     <div class="input-group-append col-md-6">
-                                        <input type="number" class="form-control" id="dni" placeholder="Ingresa DNI">
+                                        <input type="number" class="form-control" id="dni" placeholder="Ingresar número de identificación del cliente">
                                     </div>
                                 </div>
                                 <div class="form-group row">

@@ -129,3 +129,21 @@ if($_POST['funcion'] =='borrar'){
     $id = $_POST['ID'];
     $usuario->borrar($id);
 }
+
+
+/* CONSULTAR USUARIO PARA OCULTA O O EL BORTON ELIMINAR (EXPERIMENTO ADANDONADO) */
+if($_POST['funcion'] =='consultarRol'){
+    session_start();
+
+    $json=array();
+
+    $json[] = array(
+
+        'rol' => $_SESSION['rol']
+    );
+
+    $jsonstring = json_encode($json[0]);
+    echo $jsonstring;
+
+}
+

@@ -184,7 +184,7 @@ if($_POST['funcion']=='traer_productos'){
                 <td>$objeto->laboratorio</td>
                 <td>$objeto->presentacion</td>
                 <td>
-                    <input type='number' min='1' class='form-control cant_producto' value='$resultado->cantidad'>
+                    <input type='text' min='1' class='form-control cant_producto' value='$resultado->cantidad'>
                 </td>
                 <td class='subtotales'>
                     <h5>$subtotal</h5>

@@ -9,38 +9,54 @@ if(!empty($_SESSION['rol']==1 || $_SESSION['rol']==2)){
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
+
+    <!-- SECCION CABECERA -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           
-                <!-- CODBAR -->
-                <div class="input-group">
-                      <input id="campo_codbar" type="text" class="form-control float-left" placeholder="Ingrese codbar">
-                      <div class="input-group-append">
-                          <buttom class="btn btn-default"><i class="fas fa-search"></i></buttom>
-                      </div>
-                  </div>
-
           <div class="col-sm-6">
-            <h1>Catalogo</h1>
+            <h1>Venta</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Catalogo</li>
+              <li class="breadcrumb-item active">Venta</li>
             </ol>
           </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
 
+
+    <!-- SECCION CODIGO DE BARRAS VENTA -->
+    <section>
+      <div class="container-fluid">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Añadir producto al carrito</h3>    
+            </div>
+            <div class="card-body">
+              <!-- CODBAR -->
+              <div class="input-group">
+                <input id="campo_codbar" type="text" class="form-control float-left" placeholder="Ingrese aquí el código de barras del producto">
+              </div>
+              <small class="form-text text-muted">Ingrese el código de barras del producto y luego presione la tecla "Enter" para añadir al carrito.</small>
+
+            </div>
+            <div class="card-footer"></div>
+          </div>
+        </div>
+    </section>
+          
+              
+
     <!-- Main content -->
     <section>
         <div class="container-fluid">
             <div class="card card-danger">
                 <div class="card-header">
-                    <h3 class="card-title">Lotes en riesgo</h3>
-                    
+                    <h3 class="card-title">Lotes en riesgo</h3>    
                 </div>
 
                 <div class="card-body p-0 table-responsive">
@@ -79,7 +95,7 @@ if(!empty($_SESSION['rol']==1 || $_SESSION['rol']==2)){
                 <div class="card-header">
                     <h3 class="card-title">Buscar producto</h3>
                     <div class="input-group">
-                        <input id="buscar-product" type="text" class="form-control float-left" placeholder="Ingrese el nombre del producto">
+                        <input id="buscar-product" type="text" class="form-control float-left" placeholder="Ingrese el código de barras del producto">
                         <div class="input-group-append">
                             <buttom class="btn btn-default"><i class="fas fa-search"></i></buttom>
                         </div>
