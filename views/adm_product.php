@@ -11,66 +11,58 @@ if(!empty($_SESSION['rol']==1 || $_SESSION['rol']==2)){
         <div class="modal-content">
             <div class="card card-success">
                 <div class="card-header">
-                    <h3 class="card-title">Crear producto</h3>
+                    <h3 class="card-title">Producto</h3>
                     <button data-dismiss="modal" aria-label="close" class="close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="card-body">
-                    <!-- <div class="alert alert-success text-center" id="add-product" style="display: none;">
-                        <span><i class="fas fa-check m-1"></i>Registro Exitoso</span>
-                    </div>
-
-                    <div class="alert alert-danger text-center" id="noadd-product" style="display: none;">
-                        <span><i class="fas fa-times m-1"></i>Ya existe el producto ingresado</span>
-                    </div>
-
-                    <div class="alert alert-success text-center" id="edit-product" style="display: none;">
-                        <span><i class="fas fa-check m-1"></i>Producto editado</span>
-                    </div> -->
 
                     <form action="" id="form-crear-product">
+
+                        <div id="form_codbar" class="form-group">
+                            <label id="labcodbar" for="codbar">Código de Barras</label>
+                            <input type="number" class="form-control" id="codbar" required>
+                        </div>
+
                         <div class="form-group">
                             <label for="nombre">Nombre del producto</label>
                             <input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="nombreHelp" required>
-                            <!-- <input type="hidden" id="id_edit-lab"> -->
                         </div>
                         
                         <div class="form-group">
                             <label for="compos">Composición</label>
                             <input type="text" class="form-control" id="compos" name="compos" aria-describedby="composHelp">
-                            <!-- <input type="hidden" id="id_edit-lab"> -->
                             <small id="composHelp" class="form-text text-muted">Ingrese los compuestos químicos del producto.</small>
                         </div>
                         <div class="form-group">
                             <label for="adici">Información Adicional</label>
                             <input type="text" class="form-control" id="adici" name="adici" aria-describedby="adiciHelp">
-                            <!-- <input type="hidden" id="id_edit-lab"> -->
                         </div>
 
                         <div class="form-group">
                             <label for="precio">Precio</label>
                             <input type="number" step="any" class="form-control" id="precio" name="precio" aria-describedby="precioHelp" required>
-                            <!-- <input type="hidden" id="id_edit-lab"> -->
                         </div>
 
                         <div class="form-group">
                             <label for="prod_lab">Nombre del laboratorio</label>
-                            <select id="prod_lab" class="form-control select2" style="width: 100%;">
+                            <select id="prod_lab" class="form-control select2" style="width: 100%;" required>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label for="prod_tipo">Tipo de producto</label>
-                            <select id="prod_tipo" class="form-control select2" style="width: 100%;">
+                            <select id="prod_tipo" class="form-control select2" style="width: 100%;" required>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label for="prod_present">Presentación del producto</label>
-                            <select id="prod_present" class="form-control select2" style="width: 100%;">
+                            <select id="prod_present" class="form-control select2" style="width: 100%;" required>
                             </select>
                         </div>
+
                         <input type="hidden" id="id_edit-prod">
 
 
@@ -90,8 +82,8 @@ if(!empty($_SESSION['rol']==1 || $_SESSION['rol']==2)){
 
                 </div>
                 <div class="card-footer">
-                    <button type="submit" class="bnt bg-gradient-primary float-right m-1">Guardar</button>
-                    <button type="button" data-dismiss="modal" class="bnt btn-outline-secoundary float-right m-1">Cancelar</button>
+                    <button type="submit" class="btn bg-gradient-primary float-right m-1">Guardar</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-outline-secondary float-right m-1">Cerrar</button>
                     </form>
                     
                 </div>
@@ -194,7 +186,7 @@ if(!empty($_SESSION['rol']==1 || $_SESSION['rol']==2)){
                 <div class="card-header">
                     <h3 class="card-title">Buscar producto</h3>
                     <div class="input-group">
-                        <input id="buscar-product" type="text" class="form-control float-left" placeholder="Ingrese el nombre del producto">
+                        <input id="buscar-product" type="text" class="form-control float-left" placeholder="Ingrese el código de barras del producto">
                         <div class="input-group-append">
                             <buttom class="btn btn-default"><i class="fas fa-search"></i></buttom>
                         </div>

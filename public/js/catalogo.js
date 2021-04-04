@@ -77,10 +77,8 @@ $(document).ready(function(){
             buscar_producto();
         }
     });
+
     
-
-
-
     /* Funciones para llenar las listad desplegables */
     listar_labs();
     function listar_labs(){

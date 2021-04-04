@@ -62,7 +62,7 @@ $(document).ready(function(){
     function listar_proveeds(){
         funcion = "listar_proveeds";
         $.post('../controllers/proveedController.php',{funcion},(response)=>{
-            console.log(response);
+            // console.log(response);
             const PROVEEDS = JSON.parse(response);
             let template = '';
             PROVEEDS.forEach(proveed=>{
@@ -75,11 +75,20 @@ $(document).ready(function(){
         })
     }
 
+
+    $(document).on('click','#btn-crear',(e)=>{
+        $('#codbar').attr("type","number");
+        $('#labcodbar').show();
+
+    });
+
+
     /* CREAR Y ALERTAS */
     $('#form-crear-product').submit(e=>{
         /* recibir los datos del formulario al hacer click en el boton submit */
         /* val(): obtiene el valor en el imput */
         let id = $('#id_edit-prod').val()
+        let codbar = $('#codbar').val();
         let nombre = $('#nombre').val();
         let compos = $('#compos').val();
         let adici = $('#adici').val();
@@ -90,11 +99,12 @@ $(document).ready(function(){
         // console.log(nombre+" "+compos+" "+adici+" "+precio+" "+prod_lab+" "+prod_tipo+" "+prod_present);
         if(edit==true){
             funcion="editar";
+
         }else{
             funcion="crear";
         }
-        // funcion = "crear";
-        $.post('../controllers/productoController.php',{funcion,id,nombre,compos,adici,precio,prod_lab,prod_tipo,prod_present},(response)=>{
+        
+        $.post('../controllers/productoController.php',{funcion,id,codbar,nombre,compos,adici,precio,prod_lab,prod_tipo,prod_present},(response)=>{
             console.log(response);
 
             if(response=='add'){
@@ -134,7 +144,7 @@ $(document).ready(function(){
         funcion = 'buscar';
         // ajax
         $.post('../controllers/productoController.php',{consulta,funcion},(response)=>{
-            // console.log(response);
+            console.log(response);
 
             const PRODUCTS = JSON.parse(response);
             let template = '';
@@ -154,6 +164,7 @@ $(document).ready(function(){
                       <h4 class="lead"><b><i class="fas fa-lg fa-dollar-sign mr-1"></i>${product.precio}</b></h4>
 
                       <ul class="ml-4 mb-0 fa-ul text-muted">
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-barcode"></i></span> ${product.codbar}</li>
                         <li class="small"><span class="fa-li"><i class="fas fa-lg fa-cubes"></i></span> ${product.compos}</li>
                         <li class="small"><span class="fa-li"><i class="fas fa-lg fa-cubes"></i></span> ${product.adici}</li>
                         <li class="small"><span class="fa-li"><i class="fas fa-lg fa-cubes"></i></span> ${product.laboratorio}</li>
@@ -200,6 +211,7 @@ $(document).ready(function(){
 
 
     $(document).on('click','.editar',(e)=>{
+
         
         const ELEM = $(this)[0].activeElement.parentElement.parentElement.parentElement.parentElement;
         const ID = $(ELEM).attr('prodId');
@@ -211,7 +223,7 @@ $(document).ready(function(){
         const PTIPO = $(ELEM).attr('prodtipo');
         const PPRES = $(ELEM).attr('prodpres');
         // console.log(ID + '-' + NOMB + '-' + COMPOS + '-' + PRECIO + '-' + ADICI + '-' + PLAB + '-' + PTIPO + '-' + PPRES);
-
+        
         /* LOS ID# SON LOS DE LOS CAMPOSDEL FORM */
         $('#id_edit-prod').val(ID);
         $('#nombre').val(NOMB);
@@ -221,6 +233,9 @@ $(document).ready(function(){
         $('#prod_lab').val(PLAB).trigger('change');
         $('#prod_tipo').val(PTIPO).trigger('change');
         $('#prod_present').val(PPRES).trigger('change');
+        $('#codbar').attr("type","hidden");
+        $('#labcodbar').hide();
+
         edit = true;   // bandera
     })
 
@@ -243,7 +258,7 @@ $(document).ready(function(){
         const ELEM = $(this)[0].activeElement.parentElement.parentElement.parentElement.parentElement;
         const ID = $(ELEM).attr('prodId');
         const NOMB = $(ELEM).attr('prodnombre');
-        console.log(ID + NOMB);
+        // console.log(ID + NOMB);
 
         // Alerta
 
@@ -284,11 +299,7 @@ $(document).ready(function(){
                     }
                 })
             } else if (result.dismiss === Swal.DismissReason.cancel) {
-            //   swalWithBootstrapButtons.fire(
-            //     'Cancelado',
-            //     '',
-            //     'error'
-            //   )
+      
             }
           })
     });
@@ -301,7 +312,6 @@ $(document).ready(function(){
         let vencim = $('#vencim').val();
         funcion="crear";
 
-        // funcion = "crear";
         $.post('../controllers/loteController.php',{funcion,lote_id_prod,lote_id_prov,stock,vencim},(response)=>{
             console.log("mau " + response);
 

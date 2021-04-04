@@ -6,6 +6,7 @@ $(document).ready(function(){
     recuperarLS_car();
     calcularTotal()
 
+    /* CARRITO DE COMPRAS AL HACER CLICK EN EL */
     $(document).on('click','.agregar-carrito',(e)=>{
         const ELEM = $(this)[0].activeElement.parentElement.parentElement.parentElement.parentElement;
         const ID = $(ELEM).attr('prodId');
@@ -17,6 +18,9 @@ $(document).ready(function(){
         const PTIPO = $(ELEM).attr('prodtipo');
         const PPRES = $(ELEM).attr('prodpres');
         const STOCK = $(ELEM).attr('prodStock');
+
+        console.log(PLAB);
+
 
         const PRODUCTO = {
             id_prod : ID,
@@ -63,6 +67,110 @@ $(document).ready(function(){
             contarProductos();
         }     
     });
+
+
+
+    /* TRABJO EN EL CODBAR****************************** */
+
+    /* BUSCAR EL DATO INGRESADO EN EL CAMPO CODBAR*/
+    function buscarCodbar(consulta){
+        funcion = 'buscaCodbar';
+        // console.log('voy a consultar: '+consulta);
+        
+        $.post('../controllers/productoController.php',{consulta,funcion},(response)=>{
+            // console.log(response);
+
+            const RES = JSON.parse(response);
+            RES.forEach(result=>{
+
+                const ID = result.id_prod;
+                const NOMB = result.nombre;
+                const COMPOS =result.compos;
+                const PRECIO = result.precio;
+                const ADICI = result.adici;
+                const PLAB = result.lab_id;
+                const PTIPO = result.tipo_id;
+                const PPRES = result.pres_id;
+                const STOCK = result.stock;
+
+                // console.log(PLAB);
+
+                const PRODUCTOCAR = {
+                    id_prod : ID,
+                    nombre : NOMB,
+                    compos : COMPOS,
+                    adici : ADICI,
+                    precio : PRECIO,
+                    laboratorio : PLAB,
+                    tipo : PTIPO,
+                    presentacion : PPRES,
+                    stock : STOCK,
+                    cantidad : 1
+                }
+
+                /* verificar si el producto existe ya en el carr */
+                let id_prod;
+                let products;
+                products = recuperarLS();
+                products.forEach(prod=>{
+                    if(prod.id_prod === PRODUCTOCAR.id_prod){
+                        id_prod = prod.id_prod
+                    }
+                })
+
+                if(id_prod === PRODUCTOCAR.id_prod){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Ya ingresaste este producto al carrito',
+                    })
+                }else{
+                    template=`
+                        <tr prodId="${PRODUCTOCAR.id_prod}">
+                            <td>${PRODUCTOCAR.id_prod}</td>
+                            <td>${PRODUCTOCAR.nombre}</td>
+                            <td>${PRODUCTOCAR.compos}</td>
+                            <td>${PRODUCTOCAR.adici}</td>
+                            <td>${PRODUCTOCAR.precio}</td>
+                            <td><button class="btn btn-danger borrar-producto" ><i class="fas fa-times-circle"></i></button></td>
+                        </tr>
+                    `;
+                    $('#tbd-lista').append(template);
+                    agregarLS(PRODUCTOCAR);
+                    contarProductos();
+                    // $('#campo_codbar').trigger('reset')
+
+                } 
+            })
+        })
+    }
+
+    function limpiarFormulario() {
+        console.log('limpio');
+        $('#campo_codbar').val('');
+    }
+
+    /* Lee el dato en el codbar y entonces ejecuta busqueda*/
+    $(document).on('change','#campo_codbar',function(){
+        let valor = $(this).val();
+            // console.log('valor es:'+valor);
+            if(valor != ''){
+            // console.log('no es vacio:'+valor);
+            buscarCodbar(valor);
+            limpiarFormulario();
+        }else{
+            buscarCodbar();
+        }
+    });
+
+ 
+    /* FIN CODBAR ***************************************/
+
+
+
+
+
+
 
     $(document).on('click','.borrar-producto',(e)=>{
         const ELEM = $(this)[0].activeElement.parentElement.parentElement;

@@ -6,6 +6,7 @@ $product = new Producto();
 if($_POST['funcion']=='crear'){
     /* datos recibidos desde producto.js >>> $.post('../controllers/productoController.php',{fu... */
     // nombre,compos,adici,precio,prod_lab,prod_tipo,prod_present
+    $codbar = $_POST['codbar'];
     $nombre = $_POST['nombre'];
     $compos = $_POST['compos'];
     $adici = $_POST['adici'];
@@ -14,7 +15,7 @@ if($_POST['funcion']=='crear'){
     $prod_tipo = $_POST['prod_tipo'];
     $prod_present = $_POST['prod_present'];
     // $nombre = $_POST['nombre'];
-    $product->crear($nombre,$compos,$adici,$precio,$prod_lab,$prod_tipo,$prod_present);
+    $product->crear($codbar,$nombre,$compos,$adici,$precio,$prod_lab,$prod_tipo,$prod_present);
 }
 
 if($_POST['funcion']=='editar'){
@@ -32,6 +33,8 @@ if($_POST['funcion']=='editar'){
     $product->editar($id,$nombre,$compos,$adici,$precio,$prod_lab,$prod_tipo,$prod_present);
 }
 
+
+/* MOSTRAR PRODUCTOS */
 if($_POST['funcion']=='buscar'){
     $product->buscar();
     $json=array();
@@ -46,6 +49,7 @@ if($_POST['funcion']=='buscar'){
         $json[]=array(
             /* '' =>$objeto->ALIAS ASIGNADO */
             'id_prod'=>$objeto->id_prod,
+            'codbar'=>$objeto->codbar,
             'nombre'=>$objeto->nombre,
             'compos'=>$objeto->compos,
             'adici'=>$objeto->adici,
@@ -252,7 +256,45 @@ if($_POST['funcion']=='rep_prod'){
     ';
     // $css = file_get_contents("../css/pdf.css");
     $mpdf = new \Mpdf\Mpdf();
+    // $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => [50, 800]]);
     // $mpdf->WriteHTML($css, \Mpdf\HTMLParserMode::HEADER_CSS);
     $mpdf->WriteHTML($html, \Mpdf\HTMLParserMode::HTML_BODY);
     $mpdf->Output("../pdf/pdf-".$_POST['funcion'].".pdf","F");
+}
+
+
+
+
+
+/************************** CODBAR ********************************* */
+if($_POST['funcion']=='buscaCodbar'){
+    $consulta = $_POST['consulta'];
+    $product->buscarCodbarModel($consulta);
+    $json=array();
+    foreach($product->objetos as $objeto){
+        /* Funcion que busca en los lotes, los productos con id X, a medida que los va sumando, suma su cantidad */
+        $product->obtenerStock($objeto->id_prod);
+        foreach($product->objetos as $obj){
+            /* $obj->total: el total viene del alias total en el modelo >> "SELECT SUM(stock) as >>total<< ...*/
+            $total = $obj->total;
+        }
+
+        $json[]=array(
+            /* '' =>$objeto->ALIAS ASIGNADO */
+            'id_prod'=>$objeto->id_prod,
+            'nombre'=>$objeto->nombre,
+            'compos'=>$objeto->compos,
+            'adici'=>$objeto->adici,
+            'precio'=>$objeto->precio,
+            'stock'=>$total,
+            // 'laboratorio'=>$objeto->laboratorio,
+            // 'tipo'=>$objeto->tipo,
+            // 'presentacion'=>$objeto->presentacion,
+            'lab_id'=>$objeto->prod_lab,
+            'tipo_id'=>$objeto->prod_tipo,
+            'pres_id'=>$objeto->prod_pres
+        );
+    }
+    $jsonstring = json_encode($json);
+    echo $jsonstring;
 }

@@ -12,6 +12,15 @@ if(!empty($_SESSION['rol']==1 || $_SESSION['rol']==2)){
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
+          
+                <!-- CODBAR -->
+                <div class="input-group">
+                      <input id="campo_codbar" type="text" class="form-control float-left" placeholder="Ingrese codbar">
+                      <div class="input-group-append">
+                          <buttom class="btn btn-default"><i class="fas fa-search"></i></buttom>
+                      </div>
+                  </div>
+
           <div class="col-sm-6">
             <h1>Catalogo</h1>
           </div>
@@ -75,6 +84,7 @@ if(!empty($_SESSION['rol']==1 || $_SESSION['rol']==2)){
                             <buttom class="btn btn-default"><i class="fas fa-search"></i></buttom>
                         </div>
                     </div>
+              
                 </div>
 
                 <div class="card-body">
