@@ -27,6 +27,7 @@ function getHtml($id_venta){
                     </div>
                 ';
             }
+            // <th class="service">cantidad</th>
 
             $plantilla = '
         </header>
@@ -40,14 +41,31 @@ function getHtml($id_venta){
                         <th class="service">laboratorio</th>
                         <th class="service">presentacion</th>
                         <th class="service">tipo</th>
-                        <th class="service">cantidad</th>
                         <th class="service">precio</th>
                     </tr>
                 </thead>
-                        /* sigue el tbody ... FALTA MAS INFO PARA COMPLETAR */
+            ';
+                foreach ($venta_producto->objetos as $objeto) {
+                    $plantilla = '
+                <tbody>
+                    <tr>
+                        <th class="service">'.$objeto->nombre.'</th>
+                        <th class="service">'.$objeto->compos.'</th>
+                        <th class="service">'.$objeto->adici.'</th>
+                        <th class="service">'.$objeto->laboratorio.'</th>
+                        <th class="service">'.$objeto->presentacion.'</th>
+                        <th class="service">'.$objeto->tipo.'</th>
+                        <th class="service">'.$objeto->precio.'</th>
+                    </tr>
+                </tbody>
+                ';
+                }
+                $plantilla = '
+
             </table>
         </main>
     </body>
  
     ';
+    return $plantilla;
 }

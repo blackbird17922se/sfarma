@@ -198,6 +198,7 @@ if($_POST['funcion']=='traer_productos'){
 }
 
 
+/* REPORTES EN PDF */
 if($_POST['funcion']=='rep_prod'){
     date_default_timezone_set('America/Bogota');
     $fecha = date('Y-m-d H:i:s');
