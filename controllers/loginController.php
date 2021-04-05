@@ -21,8 +21,8 @@ if(!empty($_SESSION['rol'])){
 }else{
 
     // ejecutar consulta
-    $usuario->logIn($user,$pass);
-    if(!empty($usuario->objetos)){
+    if(!empty($usuario->logIn($user,$pass)=="logueado")){
+        $usuario->obtenerDatosLog($user);
         foreach($usuario->objetos as $objeto){
             $_SESSION['usuario'] = $objeto->id_usu;
             $_SESSION['rol'] = $objeto->rol;

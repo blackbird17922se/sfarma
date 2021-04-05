@@ -10,15 +10,24 @@ class Usuario{
 
     function logIn($dni, $pass){
 
-        $sql = "SELECT * FROM usuario inner join rol on rol=id_rol WHERE dni_us = :dni AND contras = :pass";
+        $sql = "SELECT * FROM usuario inner join rol on rol=id_rol WHERE dni_us = :dni";
         $query = $this->acceso->prepare($sql);
         $query->execute(array(
-            ':dni' => $dni,
-            ':pass' => $pass
+            ':dni' => $dni
         ));
-        $this->objetos = $query->fetchall();
-        return $this->objetos;
-
+        $objetos = $query->fetchall();
+        foreach($objetos as $objeto){
+            $contrasActual = $objeto->contras;
+        }
+        if(strpos($contrasActual, '$2y$10$')===0){
+            if(password_verify($pass, $contrasActual)){
+                return 'logueado';
+            }
+        }else{
+            if($pass == $contrasActual){                
+                return 'logueado';
+            }
+        }
     }
 
 
@@ -38,6 +47,17 @@ class Usuario{
     }
 
 
+    function obtenerDatosLog($dni){   
+        $sql = "SELECT * FROM usuario JOIN rol ON rol = id_rol AND dni_us = :dni";
+        $query = $this->acceso->prepare($sql);
+        $query->execute(array(
+            ':dni' => $dni,
+        ));
+        $this->objetos = $query->fetchall();
+        return $this->objetos;
+    }
+
+
     function editar($nom,$ape,$id_usu){
         $sql = "UPDATE usuario SET nom = :nom, ape = :ape WHERE id_usu=:id";
         $query = $this->acceso->prepare($sql);
@@ -52,27 +72,82 @@ class Usuario{
     function cambiarContras($oldpass,$newpass,$id_usu){
 
         /* Verifica si el id y el pass son iguales a los de la bd */
-        $sql = "SELECT * FROM usuario WHERE id_usu = :id AND contras = :oldpass";
+        $sql = "SELECT * FROM usuario WHERE id_usu = :id";
         $query = $this->acceso->prepare($sql);
         $query->execute(array(
-            ':id' => $id_usu,
-            ':oldpass' => $oldpass,
+            ':id' => $id_usu
         ));
         $this->objetos = $query->fetchall();
-
-        /* Verificar si el fechall encontro resultados */
-        if(!empty($this->objetos)){
-            $sql = "UPDATE usuario SET contras = :newpass WHERE id_usu=:id";
-            $query = $this->acceso->prepare($sql);
-            $query->execute(array(
-                ':id' => $id_usu,
-                ':newpass' => $newpass,
-            ));
-            echo 'update';
-        }else{
-            echo 'noupdate';
+        foreach($this->objetos as $objeto){
+            $contrasActual = $objeto->contras;
         }
+        if(strpos($contrasActual, '$2y$10$')===0){
+            if(password_verify($oldpass, $contrasActual)){
+                $pass = password_hash($newpass,PASSWORD_BCRYPT,['cost'=>10]);
+                $sql = "UPDATE usuario SET contras = :newpass WHERE id_usu=:id";
+                $query = $this->acceso->prepare($sql);
+                $query->execute(array(
+                    ':id' => $id_usu,
+                    ':newpass' => $pass
+                ));
+                echo 'update';
+            }else{
+                echo 'noupdate';
+            }
+        }else{
+            if($oldpass == $contrasActual){
+                $pass = password_hash($newpass,PASSWORD_BCRYPT,['cost'=>10]);
+                $sql = "UPDATE usuario SET contras = :newpass WHERE id_usu=:id";
+                $query = $this->acceso->prepare($sql);
+                $query->execute(array(
+                    ':id' => $id_usu,
+                    ':newpass' => $pass
+                ));
+                echo 'update';
+
+
+            }else{
+                echo 'noupdate';
+            }
+
+        }
+
+        // /* Verificar si el fechall encontro resultados */
+        // if(!empty($this->objetos)){
+        //     $sql = "UPDATE usuario SET contras = :newpass WHERE id_usu=:id";
+        //     $query = $this->acceso->prepare($sql);
+        //     $query->execute(array(
+        //         ':id' => $id_usu,
+        //         ':newpass' => $newpass,
+        //     ));
+        //     echo 'update';
+        // }else{
+        // }
     }
+    // function cambiarContras($oldpass,$newpass,$id_usu){
+
+    //     /* Verifica si el id y el pass son iguales a los de la bd */
+    //     $sql = "SELECT * FROM usuario WHERE id_usu = :id AND contras = :oldpass";
+    //     $query = $this->acceso->prepare($sql);
+    //     $query->execute(array(
+    //         ':id' => $id_usu,
+    //         ':oldpass' => $oldpass,
+    //     ));
+    //     $this->objetos = $query->fetchall();
+
+    //     /* Verificar si el fechall encontro resultados */
+    //     if(!empty($this->objetos)){
+    //         $sql = "UPDATE usuario SET contras = :newpass WHERE id_usu=:id";
+    //         $query = $this->acceso->prepare($sql);
+    //         $query->execute(array(
+    //             ':id' => $id_usu,
+    //             ':newpass' => $newpass,
+    //         ));
+    //         echo 'update';
+    //     }else{
+    //         echo 'noupdate';
+    //     }
+    // }
 
 
     function buscar(){
