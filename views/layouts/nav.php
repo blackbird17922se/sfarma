@@ -82,7 +82,7 @@
     <!-- Brand Logo -->
     <a href="../../index3.html" class="brand-link">
       <!-- <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> -->
-      <span class="brand-text font-weight-light">Xime28</span>
+      <span class="brand-text font-weight-light">Software Xime28</span>
     </a>
 
     <!-- Sidebar -->
@@ -93,7 +93,8 @@
           <!-- <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image"> -->
         </div>
         <div class="info">
-          <a href="adm_cat.php" class="d-block"><?php echo $_SESSION['nom'];?></a>
+          <!-- <a href="adm_cat.php" class="d-block"><?php echo $_SESSION['nom'];?></a> -->
+          <a href="adm_cat.php" class="d-block">Nueva Venta</a>
         </div>
       </div>
 
@@ -167,7 +168,7 @@
             </a>
           </li>
 
-          
+          <?php if($_SESSION['rol'] == 1){?>
           <li class="nav-header">Ventas</li>
           <!-- items que contiene la seccion Ventas -->
           <li class="nav-item">
@@ -178,6 +179,19 @@
               </p>
             </a>
           </li>
+          <?php }elseif($_SESSION['rol'] == 2){?>
+            <!-- MOMENTANEO: REDIRIGIR A OTRA VISTA QUE NO TIENE EL BOTON ELIMINAR VENTA -->
+            <li class="nav-header">Ventas</li>
+          <!-- items que contiene la seccion Ventas -->
+          <li class="nav-item">
+            <a href="adm_venta2.php" class="nav-link">
+              <i class="nav-icon fas fa-notes-medical"></i>
+              <p>
+                Gestión de Ventas2
+              </p>
+            </a>
+          </li>
+          <?php } ?>
 
 
 
