@@ -9,7 +9,7 @@ class Producto{
     }
     
 
-    function crear($codbar,$nombre,$compos,$adici,$precio,$prod_lab,$prod_tipo,$prod_pres){
+    function crear($codbar,$nombre,$compos,$adici,$iva,$precio,$prod_lab,$prod_tipo,$prod_pres){
         $sql = "SELECT id_prod FROM producto WHERE codbar = :codbar";
 
 // nombre = :nombre
@@ -36,14 +36,15 @@ class Producto{
         if(!empty($this->objetos)){
             echo 'noadd';
         }else{
-            $sql = "INSERT INTO producto(codbar, nombre, compos, adici, precio, prod_lab, prod_tipo, prod_pres) 
-            VALUES (:codbar, :nombre, :compos, :adici, :precio, :prod_lab, :prod_tipo, :prod_pres)";
+            $sql = "INSERT INTO producto(codbar, nombre, compos, adici, iva, precio, prod_lab, prod_tipo, prod_pres) 
+            VALUES (:codbar, :nombre, :compos, :adici, :iva, :precio, :prod_lab, :prod_tipo, :prod_pres)";
             $query = $this->acceso->prepare($sql);
             $query->execute(array(
                 ':codbar'       => $codbar,
                 ':nombre'       => $nombre,
                 ':compos'       => $compos,
                 ':adici'        => $adici,
+                ':iva'          => $iva,
                 ':precio'       => $precio,
                 ':prod_lab'     => $prod_lab,
                 ':prod_tipo'    => $prod_tipo,

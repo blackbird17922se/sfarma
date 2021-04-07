@@ -92,6 +92,7 @@ $(document).ready(function(){
         let nombre = $('#nombre').val();
         let compos = $('#compos').val();
         let adici = $('#adici').val();
+        let iva = $('#iva').val();
         let precio = $('#precio').val();
         let prod_lab = $('#prod_lab').val();
         let prod_tipo = $('#prod_tipo').val();
@@ -104,7 +105,7 @@ $(document).ready(function(){
             funcion="crear";
         }
         
-        $.post('../controllers/productoController.php',{funcion,id,codbar,nombre,compos,adici,precio,prod_lab,prod_tipo,prod_present},(response)=>{
+        $.post('../controllers/productoController.php',{funcion,id,codbar,nombre,compos,adici,iva,precio,prod_lab,prod_tipo,prod_present},(response)=>{
             console.log(response);
 
             if(response=='add'){

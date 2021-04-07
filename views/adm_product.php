@@ -35,9 +35,18 @@ if(!empty($_SESSION['rol']==1 || $_SESSION['rol']==2)){
                             <input type="text" class="form-control" id="compos" name="compos" aria-describedby="composHelp">
                             <small id="composHelp" class="form-text text-muted">Ingrese los compuestos químicos del producto.</small>
                         </div>
+                        
                         <div class="form-group">
                             <label for="adici">Información Adicional</label>
                             <input type="text" class="form-control" id="adici" name="adici" aria-describedby="adiciHelp">
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label >Aplicar IVA</label><br>
+                                <div class="col-md-6">
+                                    <input type="checkbox" id="iva" value="1" class="form-check-input">
+                                </div>
+                            <small id="tipo_servHelp" class="form-text text-muted">Marque solo si aplica IVA este producto</small>
                         </div>
 
                         <div class="form-group">

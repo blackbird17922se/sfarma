@@ -3,6 +3,8 @@ require_once('../vendor/autoload.php');
 include '../models/producto.php';
 $product = new Producto();
 
+
+/* **************************** CREAR **************************** */
 if($_POST['funcion']=='crear'){
     /* datos recibidos desde producto.js >>> $.post('../controllers/productoController.php',{fu... */
     // nombre,compos,adici,precio,prod_lab,prod_tipo,prod_present
@@ -10,14 +12,17 @@ if($_POST['funcion']=='crear'){
     $nombre = $_POST['nombre'];
     $compos = $_POST['compos'];
     $adici = $_POST['adici'];
+    $iva = $_POST['iva'];
     $precio = $_POST['precio'];
     $prod_lab = $_POST['prod_lab'];
     $prod_tipo = $_POST['prod_tipo'];
     $prod_present = $_POST['prod_present'];
     // $nombre = $_POST['nombre'];
-    $product->crear($codbar,$nombre,$compos,$adici,$precio,$prod_lab,$prod_tipo,$prod_present);
+    $product->crear($codbar,$nombre,$compos,$adici,$iva,$precio,$prod_lab,$prod_tipo,$prod_present);
 }
 
+
+/* **************************** EDITAR **************************** */
 if($_POST['funcion']=='editar'){
     /* datos recibidos desde producto.js >>> $.post('../controllers/productoController.php',{fu... */
     // nombre,compos,adici,precio,prod_lab,prod_tipo,prod_present
