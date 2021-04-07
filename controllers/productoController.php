@@ -227,6 +227,9 @@ if($_POST['funcion']=='rep_prod'){
             </thead>
             <tbody>
     ';
+
+
+
     $product->reporteProductos();
     $contador = 0;
     foreach ($product->objetos as $objeto) {
@@ -250,6 +253,7 @@ if($_POST['funcion']=='rep_prod'){
                 <th class="service">'.$objeto->precio.'</th>
             </tr>
         ';
+        
     }
     $html.='
             </tbody>
