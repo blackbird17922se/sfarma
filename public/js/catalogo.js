@@ -12,12 +12,12 @@ $(document).ready(function(){
     $('.select2').select2();
 
 
-    /* BUSCAR / MOSTRAR */
+    /* BUSCAR / MOSTRAR PRODUCTOS EN LA CAT VENTA */
     function buscar_producto(consulta){
         funcion = 'buscar';
         // ajax
         $.post('../controllers/productoController.php',{consulta,funcion},(response)=>{
-            // console.log(response);
+            console.log(response);
 
             const PRODUCTS = JSON.parse(response);
             let template = '';
@@ -38,6 +38,7 @@ $(document).ready(function(){
                       <h4 class="lead"><b><i class="fas fa-lg fa-dollar-sign mr-1"></i>${product.precio}</b></h4>
 
                       <ul class="ml-4 mb-0 fa-ul text-muted">
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-dollar-sign"></i></span> ${product.iva}</li>
                         <li class="small"><span class="fa-li"><i class="fas fa-lg fa-cubes"></i></span> ${product.compos}</li>
                         <li class="small"><span class="fa-li"><i class="fas fa-lg fa-cubes"></i></span> ${product.adici}</li>
                         <li class="small"><span class="fa-li"><i class="fas fa-lg fa-cubes"></i></span> ${product.laboratorio}</li>
@@ -68,6 +69,7 @@ $(document).ready(function(){
         })
     }
 
+    
     // CUADRO DE BUSQUEDAS
     $(document).on('keyup','#buscar-product',function(){
         let valor = $(this).val();
@@ -322,6 +324,7 @@ $(document).ready(function(){
         })
         e.preventDefault();
     });
+
 
     /* MOSTRAR LOTES EN RIESGO */
     function mostrar_lotes_riesgo(){
