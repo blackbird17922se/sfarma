@@ -299,7 +299,7 @@ $(document).ready(function(){
             body: 'funcion='+funcion+'&&productos='+JSON.stringify(productos)
         });
         let resultado = await RESPONSE.text();
-        console.log(resultado);
+        // console.log(resultado);
         $('#lista-compra').append(resultado);          
     }
 
