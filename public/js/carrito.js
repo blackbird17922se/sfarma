@@ -222,7 +222,7 @@ $(document).ready(function(){
         productos.forEach(producto => {
             id_producto =producto.id_prod;
             $.post('../controllers/productoController.php',{funcion,id_producto},(response)=>{
-                console.log('Soy el response de recuperarLS_car: '+ response);
+                // console.log('Soy el response de recuperarLS_car: '+ response);
                 let template_car='';
                 /* decodificar el json response */
                 let json = JSON.parse(response);
@@ -299,7 +299,7 @@ $(document).ready(function(){
             body: 'funcion='+funcion+'&&productos='+JSON.stringify(productos)
         });
         let resultado = await RESPONSE.text();
-        console.log(resultado);
+        // console.log(resultado);
         $('#lista-compra').append(resultado);          
     }
 
@@ -478,11 +478,26 @@ $(document).ready(function(){
         funcion = 'registrarCompra';
         /* capturar el dato en el campo total . get[0]= obtener el primer dato*/
         let total = $('#total').get(0).textContent;
+
+        /* Exentos */
+        let totIvaEx = $('.ExentoIva').get(0).textContent;
+        let totBaseIvaEx = $('.ExentoIva').get(0).textContent;
+        let valIvaEx = $('.ivaTotEx').get(0).textContent;
+
+        /* Gravados con IVA */
+        let totIvaAp = $('#subProdIva').get(0).textContent;
+        let totBaseIvaAp = $('#subBaseProdIva').get(0).textContent;
+        let valIvaAp = $('.ivaTot').get(0).textContent;
+
+        /* Totales */
+        let baseTotal = $('#baseTotal').get(0).textContent;
+        let ivaTotal = $('.ivaTot').get(0).textContent;
+
         let productos = recuperarLS();
         // let nomb = "mxpr";
         /* nviar ese producto al controlador */
         let json = JSON.stringify(productos);
-        $.post('../controllers/compraController.php',{funcion,total,json,nombre},(response)=>{
+        $.post('../controllers/compraController.php',{funcion,total,totIvaEx,totBaseIvaEx,valIvaEx,totIvaAp,totBaseIvaAp,valIvaAp,baseTotal,ivaTotal,json,nombre},(response)=>{
             console.log(response);
         })
 

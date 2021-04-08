@@ -19,13 +19,12 @@ function getHtml($id_venta){
             
 
 
-            ---------------- RESUMEN DE IMPUESTOS----------------
         <table class="theads">
                 <thead>
                     <tr>
-                        <th class="service theads">TOTAL</th>
-                        <th class="service">BASE</th>
-                        <th class="service">IVA</th>
+                        <th class="service theads">producto</th>
+                        <th class="service">laboratorio</th>
+                        <th class="service">precio</th>
                     </tr>
                 </thead>
                 <tbody>         
@@ -48,40 +47,6 @@ function getHtml($id_venta){
     $plantilla.='
             </tbody>
         </table> 
-
-
-
-
-        ---------------PRODUCTOS---------------------
-        <table class="theads">
-        <thead>
-            <tr>
-                <th class="service theads">producto</th>
-                <th class="service">laboratorio</th>
-                <th class="service">precio</th>
-            </tr>
-        </thead>
-        <tbody>         
-';
-
-$venta->ver($id_venta);
-$contador3 = 0;
-foreach ($venta->objetos as $objeto) {
-$contador3++;
-
-$plantilla.='
-    <tr>
-        <th class="service">'.$objeto->producto.'</th>
-        <th class="service">'.$objeto->laboratorio.'</th>
-        <th class="service">'.$objeto->precio.'</th>
-    </tr>
-';
-
-}
-   
-$plantilla.='
-    </tbody>
-</table> 
 
        
     ';

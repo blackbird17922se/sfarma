@@ -10,13 +10,25 @@ $vendedor = $_SESSION['usuario'];
 
 
 if($_POST['funcion'] == 'registrarCompra'){
+
+
     $total = $_POST['total'];
     $nombre = $_POST['nombre'];
+    $totIvaEx = $_POST['totIvaEx'];
+    $totBaseIvaEx = $_POST['totBaseIvaEx'];
+    $valIvaEx = $_POST['valIvaEx'];
+    $totIvaAp = $_POST['totIvaAp'];
+    $totBaseIvaAp = $_POST['totBaseIvaAp'];
+    $valIvaAp = $_POST['valIvaAp'];
+    $baseTotal = $_POST['baseTotal'];
+    $ivaTotal = $_POST['ivaTotal'];
+
+
     $productos = json_decode($_POST['json']);
     date_default_timezone_set('America/Bogota');
     $fecha = date('Y-m-d H:i:s');
 
-    $venta->crear($nombre,$total,$fecha,$vendedor);
+    $venta->crear($nombre,$total,$totIvaEx,$totBaseIvaEx,$valIvaEx,$totIvaAp,$totBaseIvaAp,$valIvaAp,$baseTotal,$ivaTotal,$fecha,$vendedor);
 
     /* obtener id de la venta */
     $venta->ultimaVenta();
