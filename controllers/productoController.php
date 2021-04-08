@@ -174,6 +174,27 @@ if($_POST['funcion']=='traer_productos'){
             /* Calcular subtotal */
             $subtotal= $objeto->precio * $resultado->cantidad;
 
+            /* Calcular el IVA de un producto */
+            $iva = 0.19;            /* Variable IVA */
+            $divIva = 1.19;            /* Variable Para restar el iva de un total */
+            $i = 0;
+            
+            /* Restarle el iva del precio establecido del producto
+            Mostrara al final el precio base (sin iva) */
+            if($objeto->iva == 1){
+                $sinIva = $objeto->precio / $divIva;
+                $sinIva = round($sinIva,0);  /* Redondear la cifra */
+    
+                /* Calcular el iva del producto */
+                $ivaProd = $sinIva * $iva;
+                $ivaProd = round($ivaProd,0);
+
+            }else{
+                $sinIva = $objeto->precio;
+                $ivaProd = 0;
+            }
+
+
             /* Obtener el stock */
             $product->obtenerStock($objeto->id_prod);
             foreach($product->objetos as $obj){
@@ -186,7 +207,8 @@ if($_POST['funcion']=='traer_productos'){
                 <td>$stock</td>
                 <td class='precio'>$objeto->precio</td>
                 <td>$objeto->compos</td>
-                <td>$objeto->adici</td>
+                <td>$sinIva</td>
+                <td>$ivaProd</td>
                 <td>$objeto->laboratorio</td>
                 <td>$objeto->presentacion</td>
                 <td>

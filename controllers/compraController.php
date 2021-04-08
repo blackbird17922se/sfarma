@@ -6,6 +6,9 @@ include_once '../models/conexion.php';
 $venta = new Venta();
 session_start();
 $vendedor = $_SESSION['usuario'];
+
+
+
 if($_POST['funcion'] == 'registrarCompra'){
     $total = $_POST['total'];
     $nombre = $_POST['nombre'];

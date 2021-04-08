@@ -299,7 +299,7 @@ $(document).ready(function(){
             body: 'funcion='+funcion+'&&productos='+JSON.stringify(productos)
         });
         let resultado = await RESPONSE.text();
-        // console.log(resultado);
+        console.log(resultado);
         $('#lista-compra').append(resultado);          
     }
 
@@ -359,34 +359,66 @@ $(document).ready(function(){
             totSinDescuento,
             conIgv,
             total = 0,
-            igv = 0.18,
+            igv = 0.19,
+            divIva = 1.19;
             pago,
             vuelto,
-            descuento;
+            descuento = 0,
+            subProdIva =0,
+            subBaseProdIva =0,
+            ivaTot = 0,
+            ivaTotEx = 0,
+            subProdExentoIva=0,
+            baseTotal = 0
+            ;
 
         productos = recuperarLS();
         /* este buble recorre los productos en el carrito */
         productos.forEach(producto => {
+
             let subtotProd = Number(producto.precio*producto.cantidad);
+
+
+            /* Calcular el Total de los productos con IVA */
+            if(producto.iva ==1){
+                
+                subProdIva += subtotProd;                   /* Total Productos Con IVA Agregando el IVA*/
+                subBaseProdIva = subProdIva / divIva;       /* Total Productos Con IVA sin asignar el valor IVA*/
+                ivaTot = subBaseProdIva * igv;
+
+            }else{
+                subProdExentoIva += subtotProd;
+                ivaTotEx = subProdExentoIva * 0
+            }
+
+            /* Calcular Total Bases Exentos y agravados con IVA */
+            baseTotal = subBaseProdIva + subProdExentoIva;
+
+
+            /* Calcular el Total de todos los subtotales (con y sin IVA) */
             total+=subtotProd;
         });
 
         /* Capturar valor imputs */
         pago = $('#pago').val();
-        descuento = $('#descuento').val();
+        // descuento = 0;
 
-        total-=descuento;
         vuelto=pago-total;
         // console.log(total);
-        totSinDescuento= total.toFixed(2)
-        conIgv = parseFloat(total * igv).toFixed(2);
-        subtotal = parseFloat(total-conIgv).toFixed(2);
+        totSinDescuento= total.toFixed(0)
+        conIgv = parseFloat(total * igv).toFixed(0);
+        subtotal = parseFloat(total-conIgv).toFixed(0);
 
         $('#subtotal').html(subtotal);
-        $('#con_igv').html(conIgv);
+        $('#subProdIva').html(subProdIva.toFixed(0));
+        $('#subBaseProdIva').html(subBaseProdIva.toFixed(0));
         $('#total_sin_descuento').html(totSinDescuento);
-        $('#total').html(total.toFixed(2));
-        $('#vuelto').html(vuelto.toFixed(2));
+        $('.ivaTot').html(ivaTot.toFixed(0));
+        $('.ivaTotEx').html(ivaTotEx.toFixed(0));
+        $('#total').html(total.toFixed(0));
+        $('#vuelto').html(vuelto.toFixed(0));
+        $('.ExentoIva').html(subProdExentoIva.toFixed(0));
+        $('#baseTotal').html(baseTotal.toFixed(0));
     }
 
     function procesarCompra(){
