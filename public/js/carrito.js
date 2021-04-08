@@ -14,12 +14,14 @@ $(document).ready(function(){
         const COMPOS = $(ELEM).attr('prodcompos');
         const PRECIO = $(ELEM).attr('prodprecio');
         const ADICI = $(ELEM).attr('prodadici');
+        const IVA = $(ELEM).attr('prodiva');
         const PLAB = $(ELEM).attr('prodlab');
         const PTIPO = $(ELEM).attr('prodtipo');
         const PPRES = $(ELEM).attr('prodpres');
         const STOCK = $(ELEM).attr('prodStock');
 
         console.log(PLAB);
+        console.log(IVA);
 
 
         const PRODUCTO = {
@@ -27,6 +29,7 @@ $(document).ready(function(){
             nombre : NOMB,
             compos : COMPOS,
             adici : ADICI,
+            iva : IVA,
             precio : PRECIO,
             laboratorio : PLAB,
             tipo : PTIPO,
@@ -167,11 +170,6 @@ $(document).ready(function(){
     /* FIN CODBAR ***************************************/
 
 
-
-
-
-
-
     $(document).on('click','.borrar-producto',(e)=>{
         const ELEM = $(this)[0].activeElement.parentElement.parentElement;
         const ID = $(ELEM).attr('prodId');
@@ -224,7 +222,7 @@ $(document).ready(function(){
         productos.forEach(producto => {
             id_producto =producto.id_prod;
             $.post('../controllers/productoController.php',{funcion,id_producto},(response)=>{
-                // console.log(response);
+                console.log('Soy el response de recuperarLS_car: '+ response);
                 let template_car='';
                 /* decodificar el json response */
                 let json = JSON.parse(response);
@@ -301,7 +299,7 @@ $(document).ready(function(){
             body: 'funcion='+funcion+'&&productos='+JSON.stringify(productos)
         });
         let resultado = await RESPONSE.text();
-        // console.log(resultado);
+        console.log(resultado);
         $('#lista-compra').append(resultado);          
     }
 

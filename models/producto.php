@@ -44,7 +44,7 @@ class Producto{
                 ':nombre'       => $nombre,
                 ':compos'       => $compos,
                 ':adici'        => $adici,
-                ':iva'          => $iva,
+                ':iva'        => $iva,
                 ':precio'       => $precio,
                 ':prod_lab'     => $prod_lab,
                 ':prod_tipo'    => $prod_tipo,
@@ -59,7 +59,7 @@ class Producto{
         if(!empty($_POST['consulta'])){
             /* si el imput de bsiqueda esta lleno entonces */
             $consulta = $_POST['consulta'];
-            $sql="SELECT id_prod, codbar, producto.nombre as nombre, compos, adici, precio, laboratorio.nom_lab AS laboratorio, tipo_prod.nom AS tipo, present.nom AS presentacion, prod_lab, prod_tipo, prod_pres
+            $sql="SELECT id_prod, codbar, producto.nombre as nombre, compos, adici, iva, precio, laboratorio.nom_lab AS laboratorio, tipo_prod.nom AS tipo, present.nom AS presentacion, prod_lab, prod_tipo, prod_pres
             FROM producto
             JOIN laboratorio ON prod_lab = id_lab
             JOIN tipo_prod ON prod_tipo = id_tipo_prod
@@ -71,7 +71,7 @@ class Producto{
             return $this->objetos;
         }else{
             // $sql = "SELECT id_prod, producto.nombre as nombre, compos, adici, precio, laboratorio.nom_lab AS laboratorio, tipo_prod.nom AS tipo, present.nom AS presentacion, prod_pres, prod_lab, prod_tipo, prod_pres
-            $sql = "SELECT id_prod, codbar, producto.nombre as nombre, compos, adici, precio, laboratorio.nom_lab AS laboratorio, tipo_prod.nom AS tipo, present.nom AS presentacion, prod_lab, prod_tipo, prod_pres
+            $sql = "SELECT id_prod, codbar, producto.nombre as nombre, compos, adici, iva, precio, laboratorio.nom_lab AS laboratorio, tipo_prod.nom AS tipo, present.nom AS presentacion, prod_lab, prod_tipo, prod_pres
             FROM producto
             JOIN laboratorio ON prod_lab = id_lab
             JOIN tipo_prod ON prod_tipo = id_tipo_prod
@@ -166,7 +166,7 @@ class Producto{
     /* para cuando se actualiza un precio o el stock del producto, 
     la ctualizacion se mostrada en tiempo real (por ejemplo en e carr de compras) */
     function buscar_id($id){
-        $sql="SELECT id_prod, producto.nombre as nombre, compos, adici, precio, laboratorio.nom_lab AS laboratorio, tipo_prod.nom AS tipo, present.nom AS presentacion, prod_lab, prod_tipo, prod_pres
+        $sql="SELECT id_prod, producto.nombre as nombre, compos, adici, iva, precio, laboratorio.nom_lab AS laboratorio, tipo_prod.nom AS tipo, present.nom AS presentacion, prod_lab, prod_tipo, prod_pres
         FROM producto
         JOIN laboratorio ON prod_lab = id_lab
         JOIN tipo_prod ON prod_tipo = id_tipo_prod

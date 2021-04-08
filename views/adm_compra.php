@@ -67,9 +67,10 @@ if(!empty($_SESSION['rol']==1 || $_SESSION['rol']==2)){
                                     <tr>
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Stock</th>
-                                        <th scope="col">Precio</th>
+                                        <th scope="col">Precio Total</th>
                                         <th scope="col">Concentracion</th>
-                                        <th scope="col">Adicional</th>
+                                        <th scope="col">Base</th>
+                                        <th scope="col">IVA</th>
                                         <th scope="col">Laboratorio</th>
                                         <th scope="col">Presentacion</th>
                                         <th scope="col">Cantidad</th>
@@ -199,5 +200,4 @@ include_once "layouts/footer.php";
     header("Location: ../index.php");
 }
 ?>
-<!-- <script src="../public/js/catalogo.js"></script> -->
 <script src="../public/js/carrito.js"></script>
