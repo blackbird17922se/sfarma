@@ -92,6 +92,15 @@ $(document).ready(function(){
         let nombre = $('#nombre').val();
         let compos = $('#compos').val();
         let adici = $('#adici').val();
+
+        if($('#iva').is(':checked')){
+            $('#iva').prop("value","1");
+            console.log("check");
+        }else{
+            $('#iva').prop("value","0");
+            console.log("no");
+        }
+
         let iva = $('#iva').val();
         let precio = $('#precio').val();
         let prod_lab = $('#prod_lab').val();

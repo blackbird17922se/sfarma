@@ -6,7 +6,7 @@ $(document).ready(function(){
     recuperarLS_car();
     calcularTotal()
 
-    /* CARRITO DE COMPRAS AL HACER CLICK EN EL */
+    /* CARRITO DE COMPRAS AL HACER CLICK EN EL BOTON DE CADA PRODUCTO "AGREGAR AL CARRITO"*/
     $(document).on('click','.agregar-carrito',(e)=>{
         const ELEM = $(this)[0].activeElement.parentElement.parentElement.parentElement.parentElement;
         const ID = $(ELEM).attr('prodId');
@@ -78,7 +78,7 @@ $(document).ready(function(){
     /* BUSCAR EL DATO INGRESADO EN EL CAMPO CODBAR*/
     function buscarCodbar(consulta){
         funcion = 'buscaCodbar';
-        // console.log('voy a consultar: '+consulta);
+        console.log('voy a consultar: '+consulta);
         
         $.post('../controllers/productoController.php',{consulta,funcion},(response)=>{
             // console.log(response);
@@ -91,6 +91,7 @@ $(document).ready(function(){
                 const COMPOS =result.compos;
                 const PRECIO = result.precio;
                 const ADICI = result.adici;
+                const IVA = result.iva;
                 const PLAB = result.lab_id;
                 const PTIPO = result.tipo_id;
                 const PPRES = result.pres_id;
@@ -103,6 +104,7 @@ $(document).ready(function(){
                     nombre : NOMB,
                     compos : COMPOS,
                     adici : ADICI,
+                    iva : IVA,
                     precio : PRECIO,
                     laboratorio : PLAB,
                     tipo : PTIPO,
@@ -361,16 +363,15 @@ $(document).ready(function(){
             total = 0,
             igv = 0.19,
             divIva = 1.19;
-            pago,
-            vuelto,
+            pago = 0,
+            vuelto=0,
             descuento = 0,
             subProdIva =0,
             subBaseProdIva =0,
             ivaTot = 0,
             ivaTotEx = 0,
             subProdExentoIva=0,
-            baseTotal = 0
-            ;
+            baseTotal = 0;
 
         productos = recuperarLS();
         /* este buble recorre los productos en el carrito */
@@ -380,16 +381,25 @@ $(document).ready(function(){
 
 
             /* Calcular el Total de los productos con IVA */
-            if(producto.iva ==1){
+            if(producto.iva == 1){
                 
                 subProdIva += subtotProd;                   /* Total Productos Con IVA Agregando el IVA*/
                 subBaseProdIva = subProdIva / divIva;       /* Total Productos Con IVA sin asignar el valor IVA*/
                 ivaTot = subBaseProdIva * igv;
 
-            }else{
-                subProdExentoIva += subtotProd;
-                ivaTotEx = subProdExentoIva * 0
             }
+            /* Calcular el Total de los productos con IVA */
+            if(producto.iva == 0){
+                       subProdExentoIva += subtotProd;
+                ivaTotEx = subProdExentoIva * 0
+                
+              
+
+            }
+            // else {
+            //     subProdExentoIva += subtotProd;
+            //     ivaTotEx = subProdExentoIva * 0
+            // }
 
             /* Calcular Total Bases Exentos y agravados con IVA */
             baseTotal = subBaseProdIva + subProdExentoIva;

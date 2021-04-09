@@ -62,7 +62,7 @@ h2 {
   font-size: 12px;
   /* font-size: 2.4em; */
   line-height: 1.4em;
-  font-weight: normal;
+  font-weight: bold;
   text-align: center;
   /* margin: 0 0 20px 0; */
   /* background: url(dimension.png); */
@@ -156,4 +156,13 @@ footer {
   border-top: 1px solid #C1CED9;
   padding: 8px 0;
   text-align: center;
+}
+
+.texto{
+  color: #5D6975;
+}
+
+.datVenta{
+  color: #5D6975;
+  border-top: 1px solid  #5D6975;
 }

@@ -59,13 +59,32 @@ class Venta{
     /* ESTA FUNCON SE TIENE QUE MODIFICAR PARA LA GENERACION DE PDF */
     function buscar_id($id){
         // $id = 31;
-        $sql="SELECT * FROM venta WHERE id_venta = :id
+        $sql="SELECT id_venta,fecha,cliente,total, CONCAT(usuario.nom,' ',usuario.ape) AS vendedor, totivaex,totbaseivaex,valivaex,totivaap,totbaseivaap,valivaap,basetotal,ivatotal 
+        FROM venta 
+        
+        JOIN usuario ON vendedor = id_usu
+        
+        WHERE id_venta = :id
         ";
         $query = $this->acceso->prepare($sql);
         $query->execute(array(':id'=>$id));
         $this->objetos=$query->fetchall();
         return $this->objetos;
     }
+    // /* ESTA FUNCON SE TIENE QUE MODIFICAR PARA LA GENERACION DE PDF */
+    // function buscar_id($id){
+    //     // $id = 31;
+    //     $sql="SELECT * FROM venta 
+        
+    //     JOIN usuario ON vendedor = id_usu
+        
+    //     WHERE id_venta = :id
+    //     ";
+    //     $query = $this->acceso->prepare($sql);
+    //     $query->execute(array(':id'=>$id));
+    //     $this->objetos=$query->fetchall();
+    //     return $this->objetos;
+    // }
 
 
     /* XP VENTA PRODUCTO */
@@ -73,7 +92,7 @@ class Venta{
     function ver($id){
         // echo $id;
         $sql="SELECT venta_prod.precio AS precio, cant, producto.nombre AS producto, compos,adici, laboratorio.nom_lab AS laboratorio,
-        present.nom as presentacion, tipo_prod.nom as tipo, subtotal 
+        present.nom as presentacion, tipo_prod.nom as tipo, subtotal, prod_id_prod 
         FROM venta_prod 
         JOIN producto ON prod_id_prod = id_prod AND venta_id_venta = :id
         JOIN laboratorio ON prod_lab = id_lab

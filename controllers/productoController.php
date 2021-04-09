@@ -318,11 +318,9 @@ if($_POST['funcion']=='buscaCodbar'){
             'nombre'=>$objeto->nombre,
             'compos'=>$objeto->compos,
             'adici'=>$objeto->adici,
+            'iva'=>$objeto->iva,
             'precio'=>$objeto->precio,
             'stock'=>$total,
-            // 'laboratorio'=>$objeto->laboratorio,
-            // 'tipo'=>$objeto->tipo,
-            // 'presentacion'=>$objeto->presentacion,
             'lab_id'=>$objeto->prod_lab,
             'tipo_id'=>$objeto->prod_tipo,
             'pres_id'=>$objeto->prod_pres
