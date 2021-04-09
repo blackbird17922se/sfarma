@@ -154,7 +154,7 @@ $(document).ready(function(){
         funcion = 'buscar';
         // ajax
         $.post('../controllers/productoController.php',{consulta,funcion},(response)=>{
-            console.log(response);
+            // console.log(response);
 
             const PRODUCTS = JSON.parse(response);
             let template = '';
@@ -162,7 +162,7 @@ $(document).ready(function(){
                 // <div productId="${product.id_prod}" productx="${product.x}" productx="${product.x}" productx="${product.x}" productx="${product.x}" productx="${product.x}" class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
 
                 template+=`
-                <div prodId="${product.id_prod}" prodnombre="${product.nombre}" prodprecio="${product.precio}" prodcompos="${product.compos}" prodadici="${product.adici}" prodlab="${product.lab_id}" prodtipo="${product.tipo_id}" prodpres="${product.pres_id}" class="col-12 col-sm-6 col-md-3 align-items-stretch">
+                <div prodId="${product.id_prod}" prodnombre="${product.nombre}" prodprecio="${product.precio}" prodcompos="${product.compos}" prodadici="${product.adici}" prodiva="${product.iva}" prodlab="${product.lab_id}" prodtipo="${product.tipo_id}" prodpres="${product.pres_id}" class="col-12 col-sm-6 col-md-3 align-items-stretch">
               <div class="card bg-light">
                 <div class="card-header text-muted border-bottom-0">
                 <i class="fas fa-lg fa-cubes mr-1"></i>${product.stock}
@@ -174,7 +174,8 @@ $(document).ready(function(){
                       <h4 class="lead"><b><i class="fas fa-lg fa-dollar-sign mr-1"></i>${product.precio}</b></h4>
 
                       <ul class="ml-4 mb-0 fa-ul text-muted">
-                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-barcode"></i></span> ${product.codbar}</li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-barcode"></i></span>IVA ${product.iva}</li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-barcode"></i></span>PE ${product.codbar}</li>
                         <li class="small"><span class="fa-li"><i class="fas fa-lg fa-cubes"></i></span> ${product.compos}</li>
                         <li class="small"><span class="fa-li"><i class="fas fa-lg fa-cubes"></i></span> ${product.adici}</li>
                         <li class="small"><span class="fa-li"><i class="fas fa-lg fa-cubes"></i></span> ${product.laboratorio}</li>
@@ -229,6 +230,20 @@ $(document).ready(function(){
         const COMPOS = $(ELEM).attr('prodcompos');
         const PRECIO = $(ELEM).attr('prodprecio');
         const ADICI = $(ELEM).attr('prodadici');
+        const IVA = $(ELEM).attr('prodiva');
+        // console.log(IVA);
+
+        let valCheck = $(ELEM).attr('prodiva');
+
+        if(valCheck == 1){
+            $('#iva').prop("checked",true);
+            console.log("check");
+        }else{
+            $('#iva').prop("checked",false);
+            console.log("NOcheck");
+        }
+
+
         const PLAB = $(ELEM).attr('prodlab');
         const PTIPO = $(ELEM).attr('prodtipo');
         const PPRES = $(ELEM).attr('prodpres');
@@ -239,6 +254,22 @@ $(document).ready(function(){
         $('#nombre').val(NOMB);
         $('#compos').val(COMPOS);
         $('#adici').val(ADICI);
+
+
+        if($('#iva').is(':checked')){
+            $('#iva').prop("value","1");
+            let nval = 1;
+            $('#iva').val(nval).trigger('change');
+            // console.log("cambio a 1");
+        }else{
+            $('#iva').prop("value","0");
+            let nval = 0;
+
+            $('#iva').val(nval).trigger('change');
+
+            // console.log("cambio a 0");
+        }
+
         $('#precio').val(PRECIO);
         $('#prod_lab').val(PLAB).trigger('change');
         $('#prod_tipo').val(PTIPO).trigger('change');

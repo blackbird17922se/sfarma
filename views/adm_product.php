@@ -42,13 +42,11 @@ if(!empty($_SESSION['rol']==1 || $_SESSION['rol']==2)){
                         </div>
 
                         <div class="form-group col-md-12">
-                                <label >APLICAR IVA</label><br>
-
-                                <div class="col-md-6">
-                                    <input type="checkbox" id="iva"  class="form-check-input">
-
-                                </div>
-                                <small id="tipo_servHelp" class="form-text text-muted">Seleccione si aplica iva</small>
+                            <label >APLICAR IVA</label><br>
+                            <div class="col-md-6">
+                                <input type="checkbox" id="iva" class="form-check-input">
+                            </div>
+                            <small id="tipo_servHelp" class="form-text text-muted">Seleccione si aplica iva</small>
                         </div>
 
                         <div class="form-group">

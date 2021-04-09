@@ -29,12 +29,13 @@ if($_POST['funcion']=='editar'){
     $nombre = $_POST['nombre'];
     $compos = $_POST['compos'];
     $adici = $_POST['adici'];
+    $iva = $_POST['iva'];
     $precio = $_POST['precio'];
     $prod_lab = $_POST['prod_lab'];
     $prod_tipo = $_POST['prod_tipo'];
     $prod_present = $_POST['prod_present'];
     // $nombre = $_POST['nombre'];
-    $product->editar($id,$nombre,$compos,$adici,$precio,$prod_lab,$prod_tipo,$prod_present);
+    $product->editar($id,$nombre,$compos,$adici,$iva,$precio,$prod_lab,$prod_tipo,$prod_present);
 }
 
 

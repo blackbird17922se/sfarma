@@ -86,7 +86,7 @@ class Producto{
     }
 
 
-    function editar($id,$nombre,$compos,$adici,$precio,$prod_lab,$prod_tipo,$prod_pres){
+    function editar($id,$nombre,$compos,$adici,$iva,$precio,$prod_lab,$prod_tipo,$prod_pres){
         $sql = "SELECT id_prod FROM producto WHERE id_prod != :id
         -- $nombre,$compos,$adici,$precio,$prod_lab,$prod_tipo,$prod_pres
             AND nombre = :nombre 
@@ -117,7 +117,8 @@ class Producto{
             $sql = "UPDATE producto SET
                  nombre = :nombre, 
                  compos = :compos, 
-                 adici = :adici, 
+                 adici = :adici,
+                 iva = :iva,
                  precio = :precio, 
                  prod_lab = :prod_lab, 
                  prod_tipo = :prod_tipo, 
@@ -129,6 +130,7 @@ class Producto{
                 ':nombre'       => $nombre,
                 ':compos'       => $compos,
                 ':adici'        => $adici,
+                ':iva'        => $iva,
                 ':precio'       => $precio,
                 ':prod_lab'     => $prod_lab,
                 ':prod_tipo'    => $prod_tipo,
