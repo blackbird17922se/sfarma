@@ -52,7 +52,7 @@ if(!empty($_SESSION['rol']==1)){
                 </div>
                 <div class="card-footer">
                     <button type="submit" class="btn bg-gradient-primary float-right m-1">Guardar</button>
-                    <button type="button" data-dismiss="modal" class="btn btn-outline-secoundary float-right m-1">Cancelar</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-outline-secoundary float-right m-1">Cerrar</button>
                     </form>
                     
                 </div>

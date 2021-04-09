@@ -29,7 +29,7 @@ if(!empty($_SESSION['rol'])){
                 <i class="fas fa-user"></i>
             </div>
             <div class="div">
-                <h5>DNI</h5>
+                <h5>Número Identificador de Usuario</h5>
                 <input type="number" name="user" class="input">
             </div>
         </div>
@@ -39,7 +39,7 @@ if(!empty($_SESSION['rol'])){
                 <i class="fas fa-lock"></i>
             </div>
             <div class="div">
-                <h5>contraseña</h5>
+                <h5>Contraseña</h5>
                 <input type="password" name="pass" class="input">
             </div>
         </div>

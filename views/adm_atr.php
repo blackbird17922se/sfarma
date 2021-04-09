@@ -38,7 +38,7 @@ if(!empty($_SESSION['rol']==1 || $_SESSION['rol']==2)){
                 </div>
                 <div class="card-footer">
                     <button type="submit" class="bnt btn-gradient-primary float-right m-1">Guardar</button>
-                    <button type="button" data-dismiss="modal" class="bnt btn-outline-secoundary float-right m-1">Cancelar</button>
+                    <button type="button" data-dismiss="modal" class="bnt btn-outline-secoundary float-right m-1">Cerrar</button>
                     </form>
                 </div>
             </div>
@@ -86,7 +86,7 @@ if(!empty($_SESSION['rol']==1 || $_SESSION['rol']==2)){
                 </div>
                 <div class="card-footer">
                     <button type="submit" class="bnt btn-gradient-primary float-right m-1">Guardar</button>
-                    <button type="button" data-dismiss="modal" class="bnt btn-outline-secoundary float-right m-1">Cancelar</button>
+                    <button type="button" data-dismiss="modal" class="bnt btn-outline-secoundary float-right m-1">Cerrar</button>
                     </form>
                 </div>
             </div>
@@ -128,7 +128,7 @@ if(!empty($_SESSION['rol']==1 || $_SESSION['rol']==2)){
                 </div>
                 <div class="card-footer">
                     <button type="submit" class="bnt btn-gradient-primary float-right m-1">Guardar</button>
-                    <button type="button" data-dismiss="modal" class="bnt btn-outline-secoundary float-right m-1">Cancelar</button>
+                    <button type="button" data-dismiss="modal" class="bnt btn-outline-secoundary float-right m-1">Cerrar</button>
                     </form>
                 </div>
             </div>
