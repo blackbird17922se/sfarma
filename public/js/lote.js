@@ -8,7 +8,7 @@ $(document).ready(function(){
         funcion = 'buscar';
         // ajax
         $.post('../controllers/loteController.php',{consulta,funcion},(response)=>{
-            // console.log(response);
+            console.log(response);
 
             const LOTES = JSON.parse(response);
             let template = '';
@@ -44,6 +44,7 @@ $(document).ready(function(){
                         <li class="small"><span class="fa-li"><i class="fas fa-lg fa-calendar-times"></i></span>Vencimiento: ${lote.vencim}</li>
                         <li class="small"><span class="fa-li"><i class="fas fa-lg fa-calendar-alt"></i></span>Meses para vencer: ${lote.mes}</li>
                         <li class="small"><span class="fa-li"><i class="fas fa-lg fa-calendar-day"></i></span>Dias para vencer: ${lote.dia}</li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-calendar-day"></i></span>Años para vencer: ${lote.anio}</li>
                         
                       </ul>
                     </div>

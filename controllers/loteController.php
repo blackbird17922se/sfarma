@@ -26,6 +26,7 @@ if($_POST['funcion']=='buscar'){
         $diferencia = $vencimiento->diff($fecha_actual);
 
         /* pasarrle parametros para que calcule la diferencia en meses o dias */
+        $anio = $diferencia->y;
         $mes = $diferencia->m;
         $dia = $diferencia->d;
         /* esto soluciona el problema cuando la fecha exedio la fecha de vencimiento, pero muestra estado light */
@@ -33,15 +34,19 @@ if($_POST['funcion']=='buscar'){
 
         if($verificado == 0){
             $estado = 'danger';
+            $anio = $anio*(-1);
             $mes = $mes*(-1);
             $dia = $dia*(-1);
         }else{
-            if($mes>3){
+            if($mes>=3 || $anio>1){
                 $estado = 'light';
             }
-            if($mes<=3){
+            if($mes<3 && $anio<1){
                 $estado = 'warning';
             }
+            // if($mes<3 && $dia>1 && $anio<1){
+            //     $estado = 'warning';
+            // }
         }
 
         $json[]=array(
@@ -59,6 +64,7 @@ if($_POST['funcion']=='buscar'){
             'presentacion'=>$objeto->pre_nom,
             'mes' => $mes,
             'dia' => $dia,
+            'anio' => $anio,
             'estado' => $estado,
             /* si es 1, la diferencia es positiva, si es 0 indica diferencia negativa. o sea los dias que lleva de vencido */
             'invert' => $verificado
