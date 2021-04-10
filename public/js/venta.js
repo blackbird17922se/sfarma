@@ -15,6 +15,8 @@ $(document).ready(function () {
     // }
 
     let datatable = $('#tabla_venta').DataTable( {
+
+        "order": [[ 1, "desc" ]],
         
         "ajax": {
             "url":"../controllers/ventaController.php",
